@@ -4,7 +4,7 @@ import android.media.MediaPlayer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class Tweet extends AppCompatActivity {
+public class Welcome extends AppCompatActivity {
 
     MediaPlayer mp;
 
