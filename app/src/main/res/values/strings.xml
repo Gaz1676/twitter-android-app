@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">MyTweetApp</string>
+    <string name="welcomeTitle">Welcome to myTweetApp</string>
+    <string name="twitter_icon">Twitter Icon</string>
+    <string name="welcomeMessage">Tweet me - I dare you!!</string>
+    <string name="loginButton">Login</string>
+    <string name="submitButton">Submit</string>
+</resources>
