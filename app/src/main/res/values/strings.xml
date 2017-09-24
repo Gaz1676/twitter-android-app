@@ -3,8 +3,8 @@
     <string name="welcomeTitle">Welcome to myTweetApp</string>
     <string name="twitter_icon">Twitter Icon</string>
     <string name="welcomeMessage">Tweet me - I dare you!!</string>
-    <string name="loginButton">Login</string>
-    <string name="submitButton">Submit</string>
+    <string name="welcomeLogin">Login</string>
+    <string name="welcomeSignup">Signup</string>
     <string name="tweetingTitle">What\'s happening?</string>
     <string name="cancelButton">X</string>
     <string name="userIcon">User Icon</string>
@@ -14,4 +14,16 @@
     <string name="emailTweetVia">Email Tweet via</string>
     <string name="tweetButton">Tweet</string>
     <string name="counter">140</string>
+    <string name="signUpTitle">Please enter your details</string>
+    <string name="signupFirstName">first name</string>
+    <string name="signupLastName">last name</string>
+    <string name="signupEmail">email</string>
+    <string name="signupPassword">password</string>
+    <string name="sugnupButton">Signup</string>
+    <string name="loginTitle">Enter your email and password</string>
+    <string name="loginSubtitle">you must be signed up to enter</string>
+    <string name="loginEmail">email</string>
+    <string name="loginPassword">password</string>
+    <string name="login">login</string>
+
 </resources>
