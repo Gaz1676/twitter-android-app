@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00aced"
+    tools:context="app.tweeting.Signup">
+
+    <ImageView
+        android:id="@+id/twitterIcon"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:contentDescription="@string/twitter_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@drawable/twitter_bird"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/signupFirstName"
+        app:layout_constraintVertical_bias="0.571" />
+
+    <EditText
+        android:id="@+id/signupFirstName"
+        android:layout_width="215dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="85dp"
+        android:ems="10"
+        android:hint="@string/signupFirstName"
+        android:inputType="textPersonName"
+        android:text="@string/signupFirstName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="201dp"
+        app:layout_constraintHorizontal_bias="0.95" />
+
+    <EditText
+        android:id="@+id/signupLastName"
+        android:layout_width="215dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginTop="-23dp"
+        android:ems="10"
+        android:hint="@string/signupLastName"
+        android:inputType="textPersonName"
+        android:text="@string/signupLastName"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupFirstName"
+        android:layout_marginStart="0dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.95" />
+
+    <EditText
+        android:id="@+id/signupEmail"
+        android:layout_width="215dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginTop="-22dp"
+        android:ems="10"
+        android:hint="@string/signupEmail"
+        android:inputType="textEmailAddress"
+        android:text="@string/signupEmail"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupLastName"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.95" />
+
+    <EditText
+        android:id="@+id/signupPassword"
+        android:layout_width="215dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="85dp"
+        android:layout_marginTop="-11dp"
+        android:ems="10"
+        android:hint="@string/signupPassword"
+        android:inputType="textPassword"
+        android:text="@string/signupPassword"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signupEmail"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.95" />
+
+    <Button
+        android:id="@+id/signuButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sugnupButton"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/signupPassword"
+        app:layout_constraintVertical_bias="0.756" />
+
+</android.support.constraint.ConstraintLayout>
