@@ -19,11 +19,14 @@
     <string name="signupLastName">last name</string>
     <string name="signupEmail">email</string>
     <string name="signupPassword">password</string>
-    <string name="sugnupButton">Signup</string>
+    <string name="signupButton">Signup</string>
     <string name="loginTitle">Enter your email and password</string>
     <string name="loginSubtitle">you must be signed up to enter</string>
     <string name="loginEmail">email</string>
     <string name="loginPassword">password</string>
     <string name="login">login</string>
+    <string name="menu">menu</string>
+    <string name="menuSettings">Settings</string>
+    <string name="menuLogout">Logout</string>
 
 </resources>
