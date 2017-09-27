@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/ic_menu_black_24dp"
+        android:orderInCategory="100"
+        android:title="@string/menu"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/menuSettings"
+                android:icon="@drawable/ic_settings_black_24dp"
+                android:orderInCategory="100"
+                android:title="@string/menuSettings" />
+
+            <item
+                android:id="@+id/menuLogout"
+                android:icon="@drawable/ic_logout_black_24dp"
+                android:orderInCategory="100"
+                android:title="@string/menuLogout"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+</menu>
