@@ -5,13 +5,15 @@
     <string name="welcomeMessage">Tweet me - I dare you!!</string>
     <string name="welcomeLogin">Login</string>
     <string name="welcomeSignup">Signup</string>
+
+
     <string name="tweetingTitle">What\'s happening?</string>
     <string name="cancelButton">X</string>
     <string name="userIcon">User Icon</string>
     <string name="imageIcon">Image Icon</string>
     <string name="imagesButton">Images Button</string>
     <string name="selectContact">Select Contact</string>
-    <string name="emailTweetVia">Email Tweet via</string>
+    <string name="emailTweetVia" />
     <string name="tweetButton">Tweet</string>
     <string name="counter">140</string>
     <string name="signUpTitle">Please enter your details</string>
@@ -26,7 +28,9 @@
     <string name="loginPassword">password</string>
     <string name="login">login</string>
     <string name="menu">menu</string>
-    <string name="menuSettings">Settings</string>
-    <string name="menuLogout">Logout</string>
+    <string name="account">Account</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+    <string name="clear">clear</string>
 
 </resources>
