@@ -3,7 +3,7 @@
     package="app.tweeting">
 
     <application
-        android:name="app.tweeting.TweetApp"
+        android:name="app.tweeting.main.TweetApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="TweetApp"
@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="app.tweeting.Welcome"
+            android:name="app.tweeting.activity.Welcome"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,13 +20,13 @@
         </activity>
 
         <activity
-            android:name="app.tweeting.Tweet"
+            android:name="app.tweeting.activity.Tweet"
             android:label="@string/app_name" />
         <activity
-            android:name="app.tweeting.Signup"
+            android:name="app.tweeting.activity.Signup"
             android:label="@string/app_name" />
         <activity
-            android:name="app.tweeting.Login"
+            android:name="app.tweeting.activity.Login"
             android:label="@string/app_name" />
     </application>
 
