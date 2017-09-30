@@ -1,4 +1,4 @@
-package app.tweeting;
+package app.tweeting.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import app.tweeting.R;
+import app.tweeting.main.TweetApp;
 
 public class Login extends AppCompatActivity {
 
@@ -26,12 +29,12 @@ public class Login extends AppCompatActivity {
 
         if (app.validUser(email.getText().toString(), password.getText().toString())) {
             startActivity (new Intent(this, Tweet.class));
-            mp = MediaPlayer.create(this, R.raw.valid_login);
+            mp = MediaPlayer.create(this, R.raw.valid);
             mp.start();
         } else {
             Toast toast = Toast.makeText(this, "Please sign up first!", Toast.LENGTH_SHORT);
             toast.show();
-            mp = MediaPlayer.create(this, R.raw.invalid_login);
+            mp = MediaPlayer.create(this, R.raw.invalid);
             mp.start();
         }
     }

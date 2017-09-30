@@ -1,11 +1,15 @@
-package app.tweeting;
+package app.tweeting.activity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+
+import app.tweeting.R;
+import app.tweeting.main.TweetApp;
+import app.tweeting.model.User;
 
 public class Signup extends AppCompatActivity {
 
@@ -28,7 +32,7 @@ public class Signup extends AppCompatActivity {
         TweetApp app = (TweetApp) getApplication();
         app.newUser(user);
         startActivity(new Intent(this, Login.class));
-        mp = MediaPlayer.create(this, R.raw.valid_login);
+        mp = MediaPlayer.create(this, R.raw.valid);
         mp.start();
     }
 
