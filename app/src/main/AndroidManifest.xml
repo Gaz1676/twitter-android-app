@@ -28,6 +28,13 @@
         <activity
             android:name="app.tweeting.activity.Login"
             android:label="@string/app_name" />
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/settings">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.Tweet"/>
+        </activity>
     </application>
 
 </manifest>
