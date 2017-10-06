@@ -44,6 +44,6 @@ public class TweetApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.v("Donate", "Donation App Started");
+        Log.v("Tweet", "Tweeting App Started");
     }
 }
