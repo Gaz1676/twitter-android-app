@@ -33,4 +33,9 @@
     <string name="logout">Logout</string>
     <string name="clear">clear</string>
 
+    <string name="username_summary">Please enter your user name</string>
+    <string name="username">Username</string>
+    <string name="password_summary">You may set your password here</string>
+    <string name="password">Password</string>
+
 </resources>
