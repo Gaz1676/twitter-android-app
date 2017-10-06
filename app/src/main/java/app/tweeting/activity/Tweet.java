@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import app.tweeting.R;
 import app.tweeting.main.TweetApp;
+import app.tweeting.settings.SettingsActivity;
 
 public class Tweet extends AppCompatActivity {
 
@@ -22,6 +23,7 @@ public class Tweet extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tweet);
         app = (TweetApp) getApplication();
+
     }
 
     @Override
@@ -34,10 +36,10 @@ public class Tweet extends AppCompatActivity {
                 mp.start();
                 break;
             case R.id.settings:
-                Toast.makeText(this, "Settings not completed", Toast.LENGTH_SHORT).show();
-                mp = MediaPlayer.create(this, R.raw.invalid);
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+                mp = MediaPlayer.create(this, R.raw.valid);
                 mp.start();
-                break;
+                return true;
             case R.id.logout:
                 startActivity(new Intent(this, Welcome.class));
                 break;
