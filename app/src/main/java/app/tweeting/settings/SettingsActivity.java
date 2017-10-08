@@ -2,9 +2,6 @@ package app.tweeting.settings;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-
-import app.tweeting.R;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -17,11 +14,5 @@ public class SettingsActivity extends AppCompatActivity {
                     .add(android.R.id.content, fragment, fragment.getClass().getSimpleName())
                     .commit();
         }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_tweet, menu);
-        return true;
     }
 }
