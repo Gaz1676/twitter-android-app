@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.tweeting">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+
     <application
         android:name="app.tweeting.main.TweetApp"
         android:allowBackup="true"
@@ -11,7 +14,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="app.tweeting.activity.Welcome"
+            android:name="app.tweeting.activities.WelcomeActivity"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,20 +23,20 @@
         </activity>
 
         <activity
-            android:name="app.tweeting.activity.Tweet"
+            android:name="app.tweeting.activities.TweetListActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="app.tweeting.activity.Signup"
+            android:name="app.tweeting.activities.SignupActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="app.tweeting.activity.Login"
+            android:name="app.tweeting.activities.LoginActivity"
             android:label="@string/app_name" />
         <activity
             android:name=".settings.SettingsActivity"
             android:label="@string/settings">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activity.Tweet"/>
+                android:value=".activities.TweetListActivity"/>
         </activity>
     </application>
 
