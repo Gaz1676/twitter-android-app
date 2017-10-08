@@ -9,10 +9,11 @@
         app:showAsAction="ifRoom">
         <menu>
             <item
-                android:id="@+id/account"
+                android:id="@+id/timeline"
+                android:icon="@drawable/timeline_icon"
                 android:orderInCategory="100"
-                android:icon="@drawable/user_icon"
-                android:title="@string/account" />
+                android:title="@string/timeline"
+                app:showAsAction="never" />
             <item
                 android:id="@+id/settings"
                 android:icon="@drawable/settings_icon"
