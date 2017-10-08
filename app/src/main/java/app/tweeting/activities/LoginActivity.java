@@ -1,4 +1,4 @@
-package app.tweeting.activity;
+package app.tweeting.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -11,7 +11,7 @@ import android.widget.Toast;
 import app.tweeting.R;
 import app.tweeting.main.TweetApp;
 
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     MediaPlayer mp;
 
@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity {
         TextView password  = (TextView)  findViewById(R.id.loginPassword);
 
         if (app.validUser(email.getText().toString(), password.getText().toString())) {
-            startActivity (new Intent(this, Tweet.class));
+            startActivity (new Intent(this, TweetListActivity.class));
             mp = MediaPlayer.create(this, R.raw.valid);
             mp.start();
         } else {

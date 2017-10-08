@@ -1,4 +1,4 @@
-package app.tweeting.activity;
+package app.tweeting.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -11,7 +11,7 @@ import app.tweeting.R;
 import app.tweeting.main.TweetApp;
 import app.tweeting.model.User;
 
-public class Signup extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     MediaPlayer mp;
 
@@ -31,7 +31,7 @@ public class Signup extends AppCompatActivity {
 
         TweetApp app = (TweetApp) getApplication();
         app.newUser(user);
-        startActivity(new Intent(this, Login.class));
+        startActivity(new Intent(this, LoginActivity.class));
         mp = MediaPlayer.create(this, R.raw.valid);
         mp.start();
     }

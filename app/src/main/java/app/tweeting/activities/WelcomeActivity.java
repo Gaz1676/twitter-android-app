@@ -1,4 +1,4 @@
-package app.tweeting.activity;
+package app.tweeting.activities;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -8,7 +8,7 @@ import android.view.View;
 
 import app.tweeting.R;
 
-public class Welcome extends AppCompatActivity {
+public class WelcomeActivity extends AppCompatActivity {
 
     MediaPlayer mp;
 
@@ -21,13 +21,13 @@ public class Welcome extends AppCompatActivity {
     }
 
     public void loginPressed(View view) {
-        startActivity (new Intent(this, Login.class));
+        startActivity (new Intent(this, LoginActivity.class));
         mp = MediaPlayer.create(this, R.raw.valid);
         mp.start();
     }
 
     public void signupPressed(View view) {
-        startActivity (new Intent(this, Signup.class));
+        startActivity (new Intent(this, SignupActivity.class));
         mp = MediaPlayer.create(this, R.raw.valid);
         mp.start();
     }
