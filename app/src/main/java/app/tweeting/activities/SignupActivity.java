@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import app.tweeting.R;
-import app.tweeting.main.TweetApp;
-import app.tweeting.model.User;
+import app.tweeting.main.MyTweetApp;
+import app.tweeting.models.User;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -29,11 +30,16 @@ public class SignupActivity extends AppCompatActivity {
 
         User user = new User (firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(), password.getText().toString());
 
-        TweetApp app = (TweetApp) getApplication();
+        MyTweetApp app = (MyTweetApp) getApplication();
         app.newUser(user);
-        startActivity(new Intent(this, LoginActivity.class));
+        startActivity(new Intent(this, TimelineActivity.class));
+        createToastMessage("Welcome to MyTweetApp!").show();
         mp = MediaPlayer.create(this, R.raw.valid);
         mp.start();
     }
 
+    // created a helper method for Toast response
+    private Toast createToastMessage(String string) {
+        return Toast.makeText(getApplicationContext(), string, Toast.LENGTH_SHORT);
+    }
 }

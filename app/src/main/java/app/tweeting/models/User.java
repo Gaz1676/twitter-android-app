@@ -1,4 +1,4 @@
-package app.tweeting.model;
+package app.tweeting.models;
 
 public class User {
     public String firstName;

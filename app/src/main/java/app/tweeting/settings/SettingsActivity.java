@@ -1,10 +1,15 @@
 package app.tweeting.settings;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 
-public class SettingsActivity extends AppCompatActivity {
 
+import app.tweeting.R;
+
+public class SettingsActivity extends AppCompatActivity
+{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,4 +20,11 @@ public class SettingsActivity extends AppCompatActivity {
                     .commit();
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return true;
+    }
+
 }

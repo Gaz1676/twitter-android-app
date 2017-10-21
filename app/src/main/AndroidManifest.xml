@@ -3,19 +3,20 @@
     package="app.tweeting">
 
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
 
 
     <application
-        android:name="app.tweeting.main.TweetApp"
+        android:name=".main.MyTweetApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="TweetApp"
-        android:supportsRtl="true"
+        android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="app.tweeting.activities.WelcomeActivity"
-            android:label="@string/app_name">
+            android:name=".activities.SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -23,21 +24,39 @@
         </activity>
 
         <activity
-            android:name="app.tweeting.activities.TweetListActivity"
-            android:label="@string/app_name" />
+            android:name=".activities.WelcomeActivity"
+            android:label="Welcome">
+        </activity>
+
         <activity
-            android:name="app.tweeting.activities.SignupActivity"
-            android:label="@string/app_name" />
+            android:name=".activities.SignupActivity"
+            android:label="Signup">
+        </activity>
         <activity
-            android:name="app.tweeting.activities.LoginActivity"
-            android:label="@string/app_name" />
+            android:name=".activities.LoginActivity"
+            android:label="Login">
+        </activity>
         <activity
-            android:name=".settings.SettingsActivity"
-            android:label="@string/settings">
+            android:name=".activities.TimelineActivity"
+            android:label="TimeLine" >
+        </activity>
+
+        <activity
+            android:name=".activities.TweetPagerActivity"
+            android:label="@string/app_name">
+
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".activities.TweetListActivity"/>
+                android:value=".activities.TimelineActivity"/>
         </activity>
+        <activity
+            android:name=".settings.SettingsActivity"
+            android:label="@string/settings" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.TimelineActivity"/>
+        </activity>
+
     </application>
 
 </manifest>
