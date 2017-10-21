@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.wit.mytweet.TweetActivity" >
+
+    <item android:id="@+id/menu_item_new_tweet"
+        android:icon="@drawable/tweet"
+        android:title="@string/new_tweet"
+        app:showAsAction="ifRoom|withText"
+         />
+
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/menu_icon"
+        android:orderInCategory="100"
+        android:title="@string/menu"
+        app:showAsAction="ifRoom">
+        <menu>
+            <item
+                android:id="@+id/settings"
+                android:icon="@drawable/settings_icon"
+                android:orderInCategory="100"
+                android:title="@string/settings" />
+
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/logout_icon"
+                android:orderInCategory="100"
+                android:title="@string/logout"
+                app:showAsAction="ifRoom" />
+        </menu>
+    </item>
+</menu>
