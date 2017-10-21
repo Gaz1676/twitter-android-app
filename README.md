@@ -1,4 +1,7 @@
-# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MyTweetApp
+# &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MyTweetApp
 
-<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_420,w_210/v1506528874/welcom_biv9ff.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_420,w_210/v1506528874/sigup_m7rntt.png"/>
-<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_420,w_210/v1506528874/login_tpqsaz.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_420,w_210/v1506528874/tweet_mgbomj.png"/>
+
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,w_250/v1507476493/welcome_tyc5dj.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,w_250/v1507476493/signup_iexta6.png"/>
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,w_250/v1507476493/login_es9uf9.png"/> 
+
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,w_375/v1507476493/tweet_sdyjy9.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,w_375/v1507476493/settings_pnzqgq.png"/>
