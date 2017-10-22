@@ -1,11 +1,15 @@
-package app.tweeting.activities;
+package app.tweeting.fragments;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -19,39 +23,55 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import app.tweeting.R;
-import app.tweeting.helpers.ContactHelper;
+import app.tweeting.activities.TimelineActivity;
+import app.tweeting.activities.WelcomeActivity;
+import app.tweeting.helpers.IntentHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
 import app.tweeting.settings.SettingsActivity;
 
+import static app.tweeting.R.id;
+import static app.tweeting.R.layout;
+import static app.tweeting.R.string;
+import static app.tweeting.helpers.ContactHelper.getContact;
+import static app.tweeting.helpers.ContactHelper.getEmail;
 import static app.tweeting.helpers.ContactHelper.sendEmail;
 
 
-public class TweetFragment extends Fragment implements TextWatcher,
-        OnClickListener,
+public class TweetFragment extends Fragment implements TextWatcher, OnClickListener,
         DatePickerDialog.OnDateSetListener {
+
+
     public static final String EXTRA_TWEET_ID = "mytweet.TWEET_ID";
 
     // id used for the implicit intent
     private static final int REQUEST_CONTACT = 1;
     private EditText message;
-    private Button dateButton;
-    private Button tenantButton;
-    private Button reportButton;
+    private TextView date;
+    private Button tweetButton;
+    private Button contactButton;
+    private Button emailButton;
+
+    private Intent data;
 
     private Tweet tweet;
     private Timeline timeline;
 
     private String emailAddress = "";
-
     MyTweetApp app;
+
+
+    public TweetFragment() {
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -65,35 +85,44 @@ public class TweetFragment extends Fragment implements TextWatcher,
         tweet = timeline.getTweet(tweetId);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreateView(inflater, parent, savedInstanceState);
-        View v = inflater.inflate(R.layout.fragment_tweet, parent, false);
+        View v = inflater.inflate(layout.fragment_tweet, parent, false);
 
+        // Display current date and time if this is a new tweet being created
         addListeners(v);
-        updateControls(tweet);
-
+        if (tweet.message != null) {
+            updateControls(tweet);
+        } else {
+            date.setText(tweet.getDateString());
+        }
         return v;
     }
 
+
     private void addListeners(View v) {
-        message = v.findViewById(R.id.message);
-        dateButton = v.findViewById(R.id.registration_date);
-        tenantButton = v.findViewById(R.id.tenant);
-        reportButton = v.findViewById(R.id.tweet_reportButton);
+        message = v.findViewById(id.message);
+        tweetButton = v.findViewById(id.tweetButton);
+        contactButton = v.findViewById(id.contactButton);
+        emailButton = v.findViewById(id.emailButton);
+        date = v.findViewById(id.tweetDate);
 
 
         message.addTextChangedListener(this);
-        dateButton.setOnClickListener(this);
-        tenantButton.setOnClickListener(this);
-        reportButton.setOnClickListener(this);
-
+        tweetButton.setOnClickListener(this);
+        contactButton.setOnClickListener(this);
+        emailButton.setOnClickListener(this);
+        date.setOnClickListener(this);
     }
+
 
     public void updateControls(Tweet tweet) {
         message.setText(tweet.message);
-        dateButton.setText(tweet.getDateString());
+        date.setText(tweet.getDateString());
     }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -101,20 +130,21 @@ public class TweetFragment extends Fragment implements TextWatcher,
         inflater.inflate(R.menu.tweetpage, menu);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.timeline:
-                startActivity(new Intent(getActivity(),TimelineActivity.class));
+            case id.timeline:
+                startActivity(new Intent(getActivity(), TimelineActivity.class));
                 return true;
 
-            case R.id.settings:
+            case id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
 
-            case R.id.logout:
+            case id.logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivityForResult(in, 0);
                 return true;
 
@@ -123,14 +153,15 @@ public class TweetFragment extends Fragment implements TextWatcher,
         }
     }
 
+
     // call to saveTweets triggered by ‘onPause’ method
     // occurs when the user leaves the fragment
     @Override
     public void onPause() {
         super.onPause();
         timeline.saveTweets();
-        Long tweetId = (Long) getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
     }
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -140,21 +171,22 @@ public class TweetFragment extends Fragment implements TextWatcher,
 
         switch (requestCode) {
             case REQUEST_CONTACT:
-                String name = ContactHelper.getContact(getActivity(), data);
-                emailAddress = ContactHelper.getEmail(getActivity(), data);
-                tenantButton.setText(name + " : " + emailAddress);
-                tweet.tenant = name;
+                this.data = data;
+                checkContactsReadPermission();
                 break;
         }
     }
+
 
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
     }
 
+
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
     }
+
 
     @Override
     public void afterTextChanged(Editable c) {
@@ -162,54 +194,62 @@ public class TweetFragment extends Fragment implements TextWatcher,
         tweet.message = c.toString();
     }
 
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.registration_date:
-                Calendar c = Calendar.getInstance();
-                DatePickerDialog dpd = new DatePickerDialog(getActivity(), this, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                dpd.show();
-                break;
-            case R.id.tenant:
+            case id.tweetButton:
+                if (message.getText().length() > 0) {
+                    tweet.message = message.getText().toString();
+                    IntentHelper.startActivity(getActivity(), TimelineActivity.class);
+                    timeline.saveTweets();
+
+                    break;
+                } else {
+                    createToastMessage("You forgot to enter your message!!").show();
+                    break;
+                }
+
+
+            case id.contactButton:
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
-                if (tweet.tenant != null) {
-                    tenantButton.setText("Tenant: " + tweet.tenant);
+                if (tweet.contact != null) {
+                    contactButton.setText("Contact: " + tweet.contact);
                 }
-                break;
-            case R.id.tweet_reportButton:
-                sendEmail(getActivity(), "emailAddress", getString(R.string.tweet_report_subject), tweet.getTweetReport(getActivity()));
-                break;
 
+
+                break;
+            case id.emailButton:
+                sendEmail(getActivity(), emailAddress, getString(string.email_subject), tweet.getMessage());
+                break;
         }
     }
 
-   /* //https://developer.android.com/training/permissions/requesting.html
+
+    //https://developer.android.com/training/permissions/requesting.html
     private void checkContactsReadPermission() {
-        // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
-            //We can request the permission.
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CONTACT);
         } else {
-            //We already have permission, so go head and read the contact
             readContact();
         }
     }
 
+
     private void readContact() {
         String name = getContact(getActivity(), data);
         emailAddress = getEmail(getActivity(), data);
-        tweet.tenant = name;
-        tenantButton.setText("Tenant: "+tweet.tenant);
+        tweet.contact = name;
+        contactButton.setText("Contact: " + tweet.contact);
     }
 
 
     //https://developer.android.com/training/permissions/requesting.html
     @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CONTACT: {
                 // If request is cancelled, the result arrays are empty.
@@ -220,12 +260,19 @@ public class TweetFragment extends Fragment implements TextWatcher,
                 }
             }
         }
-    }*/
+    }
+
 
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Date date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
         tweet.date = date.getTime();
-        dateButton.setText(tweet.getDateString());
+        tweetButton.setText(tweet.getDateString());
+    }
+
+
+    // created a helper method for Toast response
+    private Toast createToastMessage(String string) {
+        return Toast.makeText(app.getApplicationContext(), string, Toast.LENGTH_SHORT);
     }
 }
