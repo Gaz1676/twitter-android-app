@@ -7,4 +7,5 @@
     <color name="white">#ffffffff</color>
     <color name="blue">#ff33b5e5</color>
     <color name="blackText">#000000</color>
+    <color name="containerBackground">#c0deed</color>
 </resources>
