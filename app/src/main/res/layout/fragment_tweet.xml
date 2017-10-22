@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/tweetBackground"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <android.support.design.widget.TextInputLayout
@@ -15,8 +15,8 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/tweet_background"
-        android:textAlignment="center"
         android:orientation="horizontal"
+        android:textAlignment="center"
         app:counterEnabled="true"
         app:counterMaxLength="140"
         app:layout_constraintBottom_toTopOf="@+id/contact"
@@ -31,43 +31,60 @@
             android:layout_below="@+id/tweet"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:hint="@string/messageText"
             android:ems="10"
             android:gravity="top|start"
+            android:hint="@string/message_text"
             android:inputType=""
             android:maxLength="140"
             android:textSize="18sp"
             android:textStyle="italic">
 
         </EditText>
+
+        <TextView
+            android:id="@+id/tweetDate"
+            android:layout_width="179dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="cursive"
+            android:gravity="start"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/blackText"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="8dp"/>
+
     </android.support.design.widget.TextInputLayout>
 
-
     <Button
-        android:id="@+id/registration_date"
-        style="@style/RbButton.Inverse.Gray"
+        android:id="@+id/tweetButton"
+        style="@style/RbButton.Glossy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/registration_date" />
+        android:text="@string/tweet_button" />
 
     <Button
-        android:id="@+id/tenant"
-        style="@style/RbButton.Inverse.Gray"
+        android:id="@+id/contactButton"
+        style="@style/RbButton.Glossy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/landlord" />
+        android:layout_marginTop="8dp"
+        android:text="@string/contact_button" />
 
     <Button
-        android:id="@+id/tweet_reportButton"
-        style="@style/RbButton.Inverse.Gray"
+        android:id="@+id/emailButton"
+        style="@style/RbButton.Glossy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
-        android:text="@string/tweet_report" />
+        android:layout_marginTop="8dp"
+        android:text="@string/email_button" />
 
 </LinearLayout>
