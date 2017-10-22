@@ -1,57 +1,61 @@
 <resources>
+    <string name="app_name">MyTweetApp</string>
 
-    <string name="app_name">MyTweet</string>
-    <string name="title_activity_mytweet">MyTweetActivity</string>
-    <string name="registration_date"> </string>
+    //----------- WELCOME -----------\\
+    <string name="welcome_title">Welcome to myTweetApp</string>
+    <string name="twitter_icon">Twitter Icon</string>
+    <string name="welcome_message">Tweet me - I dare you!!</string>
+    <string name="welcome_login">Login</string>
+    <string name="welcome_signup">Signup</string>
+
+    //----------- SIGNUP -----------\\
+    <string name="signup_title">Please enter your details</string>
+    <string name="signup_firstName"> first name</string>
+    <string name="signup_lastName">last name</string>
+    <string name="signup_email">email</string>
+    <string name="signup_password">password</string>
+    <string name="signup_button">Signup</string>
+
+    //------------ LOGIN -----------\\
+    <string name="login_title">Enter your email and password</string>
+    <string name="login_subtitle">you must be signed up to enter</string>
+    <string name="login_email">email</string>
+    <string name="login_password">password</string>
+    <string name="login">Login</string>
+
+
+    //---------- TIMELINE ----------\\
     <string name="new_tweet">New Tweet</string>
-    <string name="settings">Settings</string>
-
-    <string name="landlord">Prospective Tenant</string>
-    <string name="tweet_report">Send Tweet via Email</string>
-
-    <string name="tweet_report_rented">The tweet is already let.</string>
-    <string name="tweet_report_not_rented">The tweet is still available.</string>
-    <string name="tweet_report_nobody_interested">There is no other prospective tenant at this time.</string>
-    <string name="tweet_report_prospective_tenant">The prospective tenant is %s.</string>
-    <string name="tweet_report_subject">Status Report on Tweet Availability</string>
-    <string name="send_tweet">Send tweet report via</string>
-
     <string name="delete_tweet">Delete Tweet</string>
+    <string name="date"> </string>
 
-    <string name="username_summary">Please enter your user name</string>
+
+    //--------- TWEET PAGE ----------\\
+    <string name="message_text">What\'s on your mind??</string>
+    <string name="tweet_button">Send Tweet</string>
+    <string name="contact_button">Select Contact</string>
+    <string name="email_button">Send Tweet via Email</string>
+
+
+    //--------- EMAIL SUBJECT --------\\
+    <string name="email_subject">Have You Heard The News????</string>
+
+
+    //------------ MENU -----------\\
+    <string name="menu">Menu</string>
+    <string name="timeline">TimeLine</string>
+    <string name="settings">Settings</string>
+    <string name="logout">Logout</string>
+
+
+    //---------- SETTINGS -----------\\
     <string name="username">Username</string>
-    <string name="password_summary">You may set your password here</string>
+    <string name="username_summary">Please enter your user name</string>
     <string name="password">Password</string>
+    <string name="password_summary">You may set your password here</string>
     <string name="nmr_tweets">Configure Downloads</string>
     <string name="nmr_tweets_summary">How many Tweets to store locally?</string>
     <string name="set_refresh_interval">Refresh</string>
     <string name="set_refresh_interval_summary">Frequency of cloud updates (minutes)</string>
-    <string name="messageText">What\'s on your mind??</string>
-    <string name="textboxHeader">Hello, how are you???</string>
-    <string name="logout">Logout</string>
-    <string name="timeline">TimeLine</string>
-    <string name="menu">Menu</string>
-
-    <string name="welcomeTitle">Welcome to myTweetApp</string>
-    <string name="twitterIcon">Twitter Icon</string>
-    <string name="welcomeMessage">Tweet me - I dare you!!</string>
-    <string name="welcomeLogin">Login</string>
-    <string name="welcomeSignup">Signup</string>
-
-    //----------- Signup -----------\\
-    <string name="signUpTitle">Please enter your details</string>
-    <string name="signupFirstName"> first name</string>
-    <string name="signupLastName">last name</string>
-    <string name="signupEmail">email</string>
-    <string name="signupPassword">password</string>
-    <string name="signupButton">Signup</string>
-
-    //----------- Login -----------\\
-    <string name="loginTitle">Enter your email and password</string>
-    <string name="loginSubtitle">you must be signed up to enter</string>
-    <string name="loginEmail">email</string>
-    <string name="loginPassword">password</string>
-    <string name="login">Login</string>
-
 
 </resources>

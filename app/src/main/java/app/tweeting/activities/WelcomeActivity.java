@@ -15,6 +15,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
     MediaPlayer mp;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +31,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         mp.start();
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -39,6 +41,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
                 mp = MediaPlayer.create(this, R.raw.valid);
                 mp.start();
                 break;
+
 
             case R.id.signupButton:
                 info(this, "Signup Pressed");

@@ -24,14 +24,14 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
     }
 
+
     public void loginPressed(View view) {
         MyTweetApp app = (MyTweetApp) getApplication();
-
-        TextView email     = (TextView)  findViewById(R.id.loginEmail);
-        TextView password  = (TextView)  findViewById(R.id.loginPassword);
+        TextView email = (TextView) findViewById(R.id.loginEmail);
+        TextView password = (TextView) findViewById(R.id.loginPassword);
 
         if (app.validUser(email.getText().toString(), password.getText().toString())) {
-            startActivity (new Intent(this, TimelineActivity.class));
+            startActivity(new Intent(this, TimelineActivity.class));
             mp = MediaPlayer.create(this, R.raw.valid);
             mp.start();
         } else {
@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             mp.start();
         }
     }
+
 
     // created a helper method for Toast response
     private Toast createToastMessage(String string) {

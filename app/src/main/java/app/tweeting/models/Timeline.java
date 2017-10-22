@@ -8,13 +8,10 @@ import static app.tweeting.helpers.LogHelpers.info;
 
 // Uses the serializer to read and write the tweet list
 public class Timeline {
+
     public ArrayList<Tweet> tweets;
     private TimelineSerializer serializer;
 
-    /*public Timeline() {
-        tweets = new ArrayList<>();
-        //this.generateTestData();
-    }*/
 
     // Read - in constructor with creation of timeline
     public Timeline(TimelineSerializer serializer) {
@@ -27,9 +24,11 @@ public class Timeline {
         }
     }
 
+
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
     }
+
 
     public Tweet getTweet(Long id) {
         Log.i(this.getClass().getSimpleName(), "Long parameter id: " + id);
@@ -42,7 +41,8 @@ public class Timeline {
         return null;
     }
 
-    // Write - in method called when data may have changed
+
+    // Saves - in method called when data may have changed
     public boolean saveTweets() {
         try {
             serializer.saveTweets(tweets);
@@ -53,6 +53,7 @@ public class Timeline {
             return false;
         }
     }
+
 
     public void deleteTweet(Tweet tweet) {
         tweets.remove(tweet);

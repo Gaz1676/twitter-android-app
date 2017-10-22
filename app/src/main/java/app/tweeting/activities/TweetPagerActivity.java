@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 
 import app.tweeting.R;
+import app.tweeting.fragments.TweetFragment;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
@@ -36,13 +37,10 @@ public class TweetPagerActivity extends AppCompatActivity implements ViewPager.O
         viewPager.setAdapter(pagerAdapter);
         viewPager.addOnPageChangeListener(this);
         setCurrentItem();
-
-
     }
 
 
     // Ensure selected residence is shown in details view
-
     private void setCurrentItem() {
         Long resId = (Long) getIntent().getSerializableExtra(TweetFragment.EXTRA_TWEET_ID);
         for (int i = 0; i < tweets.size(); i++) {
@@ -52,6 +50,7 @@ public class TweetPagerActivity extends AppCompatActivity implements ViewPager.O
             }
         }
     }
+
 
     private void setTimeline() {
         MyTweetApp app = (MyTweetApp) getApplication();
@@ -69,15 +68,16 @@ public class TweetPagerActivity extends AppCompatActivity implements ViewPager.O
         }
     }
 
+
     @Override
     public void onPageSelected(int position) {
-
     }
+
 
     @Override
     public void onPageScrollStateChanged(int state) {
-
     }
+
 
     class PagerAdapter extends FragmentStatePagerAdapter {
         private ArrayList<Tweet> tweets;
@@ -87,10 +87,12 @@ public class TweetPagerActivity extends AppCompatActivity implements ViewPager.O
             this.tweets = tweets;
         }
 
+
         @Override
         public int getCount() {
             return tweets.size();
         }
+
 
         @Override
         public Fragment getItem(int pos) {

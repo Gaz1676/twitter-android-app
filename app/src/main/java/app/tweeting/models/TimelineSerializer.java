@@ -20,13 +20,16 @@ import java.util.ArrayList;
 // collection of tweet objects to / from disk
 
 public class TimelineSerializer {
+
     private Context mContext;
     private String mFilename;
+
 
     public TimelineSerializer(Context c, String f) {
         mContext = c;
         mFilename = f;
     }
+
 
     // creates a JSON Array object
     public void saveTweets(ArrayList<Tweet> tweets) throws JSONException, IOException {
@@ -47,6 +50,7 @@ public class TimelineSerializer {
                 writer.close();
         }
     }
+
 
     // Creates Tweet Array
     public ArrayList<Tweet> loadTweets() throws IOException, JSONException {
