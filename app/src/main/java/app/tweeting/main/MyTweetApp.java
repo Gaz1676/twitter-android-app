@@ -32,9 +32,11 @@ public class MyTweetApp extends Application {
         info(this, "MyTweetApp is launched");
     }
 
+
     public void newUser(User user) {
         users.add(user);
     }
+
 
     public boolean validUser(String email, String password) {
         for (User user : users) {
@@ -44,6 +46,7 @@ public class MyTweetApp extends Application {
         }
         return false;
     }
+
 
     public static MyTweetApp getApp() {
         return app;
