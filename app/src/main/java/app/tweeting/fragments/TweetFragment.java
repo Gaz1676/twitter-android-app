@@ -91,13 +91,8 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         super.onCreateView(inflater, parent, savedInstanceState);
         View v = inflater.inflate(layout.fragment_tweet, parent, false);
 
-        // Display current date and time if this is a new tweet being created
         addListeners(v);
-        if (tweet.message != null) {
-            updateControls(tweet);
-        } else {
-            date.setText(tweet.getDateString());
-        }
+        updateControls(tweet);
         return v;
     }
 
@@ -135,6 +130,11 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case id.timeline:
+
+                // stops a blank tweet being created when going back to timeline from menu
+                if (tweet.message == null) {
+                    timeline.deleteTweet(tweet);
+                }
                 startActivity(new Intent(getActivity(), TimelineActivity.class));
                 return true;
 
