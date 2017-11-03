@@ -1,16 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@drawable/background_activated"
     android:orientation="vertical"
     android:textAlignment="center">
 
+    <ImageView
+        android:id="@+id/RowImage"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="14dp"
+        android:contentDescription="fav"
+        android:gravity="center_vertical"
+        android:src="@drawable/twitter"
+        tools:ignore="HardcodedText" />
+
     <TextView
         android:id="@+id/timeline_item_tweet"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/timeline_item_dateTextView"
         android:paddingEnd="8dp"
         android:paddingStart="8dp"
         android:textColor="@color/blackText"
@@ -18,12 +32,15 @@
 
     <TextView
         android:id="@+id/timeline_item_dateTextView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/timeline_item_tweet"
+        android:layout_marginStart="26dp"
+        android:layout_toEndOf="@+id/RowImage"
         android:fontFamily="cursive"
-        android:paddingStart="16dp"
         android:paddingEnd="4dp"
+        android:paddingStart="16dp"
         android:paddingTop="8dp" />
 
 </RelativeLayout>
+
