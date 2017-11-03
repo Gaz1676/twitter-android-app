@@ -103,7 +103,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/login"
+        android:id="@+id/loginButton"
         style="@style/Widget.AppCompat.Button.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -115,8 +115,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/button_color_edges"
         android:fontFamily="cursive"
-        android:onClick="loginPressed"
-        android:text="@string/login"
+        android:text="@string/login_button"
         android:textAllCaps="false"
         android:textSize="18sp"
         android:textStyle="bold"

@@ -109,7 +109,6 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/button_color_edges"
         android:fontFamily="cursive"
-        android:onClick="signupPressed"
         android:text="@string/signup_button"
         android:textAllCaps="false"
         android:textSize="18sp"
