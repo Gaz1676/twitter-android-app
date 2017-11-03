@@ -1,4 +1,4 @@
-package app.tweeting.settings;
+package app.tweeting.fragments;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

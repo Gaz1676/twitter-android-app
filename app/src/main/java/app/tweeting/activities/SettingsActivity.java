@@ -1,12 +1,11 @@
-package app.tweeting.settings;
+package app.tweeting.activities;
 
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 
-
-import app.tweeting.R;
+import app.tweeting.fragments.SettingsFragment;
 
 public class SettingsActivity extends AppCompatActivity
 {
@@ -23,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        //getMenuInflater().inflate(R.menu.settings_menu, menu);
         return true;
     }
 
