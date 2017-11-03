@@ -22,7 +22,11 @@
                 android:icon="@drawable/settings_icon"
                 android:orderInCategory="100"
                 android:title="@string/settings" />
-
+            <item
+                android:id="@+id/clear"
+                android:icon="@drawable/clear_icon"
+                android:orderInCategory="100"
+                android:title="@string/clear" />
             <item
                 android:id="@+id/logout"
                 android:icon="@drawable/logout_icon"
