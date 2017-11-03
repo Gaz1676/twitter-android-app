@@ -23,6 +23,14 @@ public class IntentHelper {
         parent.startActivity(intent);
     }
 
+    public static void startActivityWithDataForResult (Activity parent, Class classname, String extraID, Serializable extraData, int idForResult)
+    {
+        Intent intent = new Intent(parent, classname);
+        intent.putExtra(extraID, extraData);
+        parent.startActivityForResult(intent, idForResult);
+    }
+
+
 
     // to support enhanced navigation, we define an additional Helper method in the IntentHelper class
     public static void navigateUp(Activity parent) {

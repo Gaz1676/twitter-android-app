@@ -6,18 +6,18 @@ import java.util.ArrayList;
 
 import static app.tweeting.helpers.LogHelpers.info;
 
-// Uses the serializer to read and write the tweet list
+// Uses the serializer to load and save the timeline
 public class Timeline {
 
     public ArrayList<Tweet> tweets;
-    private TimelineSerializer serializer;
+    private TweetSerializer tweetSerializer;
 
 
-    // Read - in constructor with creation of timeline
-    public Timeline(TimelineSerializer serializer) {
-        this.serializer = serializer;
+    // loads constructor with creation of timeline
+    public Timeline(TweetSerializer tweetSerializer) {
+        this.tweetSerializer = tweetSerializer;
         try {
-            tweets = serializer.loadTweets();
+            tweets = tweetSerializer.loadTweets();
         } catch (Exception e) {
             info(this, "Error loading tweets: " + e.getMessage());
             tweets = new ArrayList<>();
@@ -27,6 +27,7 @@ public class Timeline {
 
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
+        this.saveTweets();
     }
 
 
@@ -42,21 +43,21 @@ public class Timeline {
     }
 
 
-    // Saves - in method called when data may have changed
+    public void deleteTweet(Tweet tweet) {
+        tweets.remove(tweet);
+        saveTweets();
+    }
+
+
+    // save method called when data may have changed
     public boolean saveTweets() {
         try {
-            serializer.saveTweets(tweets);
+            tweetSerializer.saveTweets(tweets);
             info(this, "Tweets saved to file");
             return true;
         } catch (Exception e) {
             info(this, "Error saving tweets: " + e.getMessage());
             return false;
         }
-    }
-
-
-    public void deleteTweet(Tweet tweet) {
-        tweets.remove(tweet);
-        saveTweets();
     }
 }

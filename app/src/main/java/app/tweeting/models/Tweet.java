@@ -6,9 +6,7 @@ import org.json.JSONObject;
 import java.util.Date;
 import java.util.Random;
 
-/* This Tweet model has the ability to save and restore itself
-    to an external JSON format.
- */
+// this Tweet model has the ability to save and restore itself to an external JSON format.
 
 public class Tweet {
 
@@ -16,12 +14,14 @@ public class Tweet {
     public Long date;
     public String contact;
     public String message;
+    public Long userId;
 
     // string IDs of each field that are to be serialized
     private static final String JSON_ID = "id";
     private static final String JSON_DATE = "date";
     private static final String JSON_CONTACT = "contact";
     private static final String JSON_MESSAGE = "message";
+    private static final String JSON_USERID = "userId";
 
 
     public Tweet() {
@@ -32,7 +32,7 @@ public class Tweet {
 
 
     private Long unsignedLong() {
-        long rndVal = 0;
+        long rndVal;
         do {
             rndVal = new Random().nextLong();
         } while (rndVal <= 0);
@@ -46,6 +46,7 @@ public class Tweet {
         date = json.getLong(JSON_DATE);
         contact = json.getString(JSON_CONTACT);
         message = json.getString(JSON_MESSAGE);
+        userId = json.getLong(JSON_USERID);
     }
 
 
@@ -56,6 +57,7 @@ public class Tweet {
         json.put(JSON_DATE, date);
         json.put(JSON_CONTACT, contact);
         json.put(JSON_MESSAGE, message);
+        json.put(JSON_USERID, userId);
 
         return json;
     }
@@ -66,14 +68,13 @@ public class Tweet {
     }
 
 
-    private String dateString() {
-        String dateFormat = "EEE d MMM yyyy H:mm";
-        return android.text.format.DateFormat.format(dateFormat, date).toString();
-    }
-
-
     public String getDateString() {
         return dateString();
     }
 
+
+    private String dateString() {
+        String dateFormat = "EEE d MMM yyyy H:mm";
+        return android.text.format.DateFormat.format(dateFormat, date).toString();
+    }
 }

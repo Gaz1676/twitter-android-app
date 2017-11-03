@@ -22,19 +22,19 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import app.tweeting.R;
-import app.tweeting.activities.TweetPagerActivity;
+import app.tweeting.activities.TweetActivity;
 import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
-import app.tweeting.settings.SettingsActivity;
+import app.tweeting.activities.SettingsActivity;
 
 public class TimelineFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener {
     private ArrayList<Tweet> tweets;
     private Timeline timeline;
     private TweetAdapter adapter;
-    private ListView listView;
+    private ListView listView; // multi choice mode field
 
     MyTweetApp app;
 
@@ -54,6 +54,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, parent, savedInstanceState);
@@ -64,22 +65,25 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
+
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Tweet tweet = ((TweetAdapter) getListAdapter()).getItem(position);
-        Intent i = new Intent(getActivity(), TweetPagerActivity.class);
+        Intent i = new Intent(getActivity(), TweetActivity.class);
         i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
         startActivityForResult(i, 0);
     }
 
 
+    // method for the interface
     @Override
-    public void onResume() {
-        super.onResume();
-        ((TweetAdapter) getListAdapter()).notifyDataSetChanged();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Tweet tweet = adapter.getItem(position);
+        IntentHelper.startActivityWithData(getActivity(), TweetActivity.class, "TWEET_ID", tweet.id);
     }
 
 
+    // connects new menu to timeline Activity
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -87,6 +91,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
+    // new instance created after selection from the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -94,13 +99,22 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
                 Tweet tweet = new Tweet();
                 timeline.addTweet(tweet);
 
-                Intent i = new Intent(getActivity(), TweetPagerActivity.class);
+                Intent i = new Intent(getActivity(), TweetActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
                 startActivityForResult(i, 0);
                 return true;
 
+
+
             case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+                return true;
+
+            case R.id.clear:
+                for (int x  = tweets.size()  - 1; x >= 0; x--) {
+                    timeline.deleteTweet(tweets.get(x));
+                    adapter.notifyDataSetChanged();
+                }
                 return true;
 
             case R.id.logout:
@@ -115,10 +129,11 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
+    // makes sure changes made in timeline Activity are shown in the list
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Tweet tweet = adapter.getItem(position);
-        IntentHelper.startActivityWithData(getActivity(), TweetPagerActivity.class, "TWEET_ID", tweet.id);
+    public void onResume() {
+        super.onResume();
+        ((TweetAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
 
@@ -168,9 +183,12 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     @Override
     public void onItemCheckedStateChanged(ActionMode actionMode, int position, long id, boolean checked) {
     }
-
   /* ************ MultiChoiceModeListener methods (end) *********** */
 
+
+
+
+    // the tweet adapter updates the list with the tweet objects contained in the timeline
 
     class TweetAdapter extends ArrayAdapter<Tweet> {
         private Context context;

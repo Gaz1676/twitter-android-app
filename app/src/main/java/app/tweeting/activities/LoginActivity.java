@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,13 +23,22 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Button login_button = (Button) findViewById(R.id.loginButton);
+        login_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                login(view);
+            }
+        });
     }
 
 
-    public void loginPressed(View view) {
+    // checks to see if the inputted data matches the user
+    public void login(View view) {
         MyTweetApp app = (MyTweetApp) getApplication();
         TextView email = (TextView) findViewById(R.id.loginEmail);
         TextView password = (TextView) findViewById(R.id.loginPassword);
+
 
         if (app.validUser(email.getText().toString(), password.getText().toString())) {
             startActivity(new Intent(this, TimelineActivity.class));
@@ -45,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
             mp.start();
         }
     }
+
 
 
     // created a helper method for Toast response

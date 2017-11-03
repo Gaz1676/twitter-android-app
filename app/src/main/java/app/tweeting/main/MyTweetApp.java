@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.tweeting.models.Timeline;
-import app.tweeting.models.TimelineSerializer;
+import app.tweeting.models.TweetSerializer;
 import app.tweeting.models.User;
 
 import static app.tweeting.helpers.LogHelpers.info;
@@ -19,13 +19,12 @@ public class MyTweetApp extends Application {
     protected static MyTweetApp app;
 
 
-    // Passes the serializer to the Timeline object
-    // which will be responsible for loading / saving
-    // to the file using the serializer
+    // Passes the serializer to the Timeline object which will be responsible
+    // for loading / saving to the file using the serializer
     @Override
     public void onCreate() {
         super.onCreate();
-        TimelineSerializer serializer = new TimelineSerializer(this, FILENAME);
+        TweetSerializer serializer = new TweetSerializer(this, FILENAME);
         timeline = new Timeline(serializer);
         app = this;
 

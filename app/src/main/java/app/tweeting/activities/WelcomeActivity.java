@@ -21,11 +21,11 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        final Button loginButton = (Button) findViewById(R.id.loginButton);
-        final Button signupButton = (Button) findViewById(R.id.signupButton);
+        final Button login_button = (Button) findViewById(R.id.loginButton);
+        final Button signup_button = (Button) findViewById(R.id.signupButton);
 
-        loginButton.setOnClickListener(this);
-        signupButton.setOnClickListener(this);
+        login_button.setOnClickListener(this);
+        signup_button.setOnClickListener(this);
 
         mp = MediaPlayer.create(this, R.raw.welcome_chirp);
         mp.start();

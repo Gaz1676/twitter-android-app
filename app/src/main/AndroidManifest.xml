@@ -65,7 +65,7 @@
         <!--TWEETPAGER SCREEN-->
 
         <activity
-            android:name=".activities.TweetPagerActivity"
+            android:name=".activities.TweetActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
 
@@ -78,7 +78,7 @@
         <!--SETTINGS SCREEN-->
 
         <activity
-            android:name=".settings.SettingsActivity"
+            android:name=".activities.SettingsActivity"
             android:label="@string/settings"
             android:screenOrientation="portrait">
 

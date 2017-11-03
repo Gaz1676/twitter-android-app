@@ -30,13 +30,13 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import app.tweeting.R;
+import app.tweeting.activities.SettingsActivity;
 import app.tweeting.activities.TimelineActivity;
 import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
-import app.tweeting.settings.SettingsActivity;
 
 import static app.tweeting.R.id;
 import static app.tweeting.R.layout;
@@ -44,6 +44,7 @@ import static app.tweeting.R.string;
 import static app.tweeting.helpers.ContactHelper.getContact;
 import static app.tweeting.helpers.ContactHelper.getEmail;
 import static app.tweeting.helpers.ContactHelper.sendEmail;
+import static app.tweeting.helpers.IntentHelper.navigateUp;
 
 
 public class TweetFragment extends Fragment implements TextWatcher, OnClickListener,
@@ -54,12 +55,14 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
     // id used for the implicit intent
     private static final int REQUEST_CONTACT = 1;
+    
     private EditText message;
     private TextView date;
     private Button tweetButton;
     private Button contactButton;
     private Button emailButton;
 
+    // used to provide us with access to data intent outside onActivityResult
     private Intent data;
 
     private Tweet tweet;
@@ -78,7 +81,9 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
 
-        Long tweetId = (Long) getArguments().getSerializable(EXTRA_TWEET_ID);
+        //Recover the ID passed to us via the intent in TimelineActivity
+        // Long tweetId = (Long) getActivity().getIntent().getSerializableExtra("EXTRA_TWEET_ID");
+        Long tweetId = (Long) getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
 
         app = MyTweetApp.getApp();
         timeline = app.timeline;
@@ -90,7 +95,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreateView(inflater, parent, savedInstanceState);
         View v = inflater.inflate(layout.fragment_tweet, parent, false);
-
         addListeners(v);
         updateControls(tweet);
         return v;
@@ -114,8 +118,10 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
 
     public void updateControls(Tweet tweet) {
-        message.setText(tweet.message);
+        message.setText(tweet.getMessage());
         date.setText(tweet.getDateString());
+        contactButton.setText("Contact: " + emailAddress);
+
     }
 
 
@@ -130,11 +136,8 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case id.timeline:
-
-                // stops a blank tweet being created when going back to timeline from menu
-                if (tweet.message == null) {
                     timeline.deleteTweet(tweet);
-                }
+
                 startActivity(new Intent(getActivity(), TimelineActivity.class));
                 return true;
 
@@ -154,26 +157,17 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
-    // call to saveTweets triggered by ‘onPause’ method
-    // occurs when the user leaves the fragment
+    // if the message is empty it is deleted before resuming
+    // otherwise it is saved to timeline
     @Override
     public void onPause() {
         super.onPause();
-        timeline.saveTweets();
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode != Activity.RESULT_OK) {
-            return;
-        }
-
-        switch (requestCode) {
-            case REQUEST_CONTACT:
-                this.data = data;
-                checkContactsReadPermission();
-                break;
+        if (message.getText().length() > 0) {
+            tweet.message = message.getText().toString();
+            navigateUp(getActivity());
+            timeline.saveTweets();
+        } else {
+            timeline.deleteTweet(tweet);
         }
     }
 
@@ -215,7 +209,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
                 if (tweet.contact != null) {
-                    contactButton.setText("Contact: " + tweet.contact);
+                    contactButton.setText("Contact: " + emailAddress);
                 }
 
 
@@ -227,13 +221,36 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
-    //https://developer.android.com/training/permissions/requesting.html
+    // deals with selectContent method activating 'startActivityForResult'
+    // reading of contact details sent out to readContact()
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case REQUEST_CONTACT:
+                this.data = data;
+                checkContactsReadPermission();
+                break;
+        }
+    }
+
+    // checks if app has permission to read phones contact details.
+    // if permission true - the readContact() method will be called
+    // if false - a pop-up dialog box with a toast will ask for permission
+    // there are two options - allow or deny access
+    // https://developer.android.com/training/permissions/requesting.html
     private void checkContactsReadPermission() {
+        // current activity
         if (ContextCompat.checkSelfPermission(getActivity(),
                 Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            // permission can be requested here
             ActivityCompat.requestPermissions(getActivity(),
                     new String[]{Manifest.permission.READ_CONTACTS}, REQUEST_CONTACT);
         } else {
+            // else if already granted permission
             readContact();
         }
     }
@@ -242,10 +259,14 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     private void readContact() {
         String name = getContact(getActivity(), data);
         emailAddress = getEmail(getActivity(), data);
-        tweet.contact = name;
-        contactButton.setText("Contact: " + tweet.contact);
+        tweet.contact = emailAddress;
+        contactButton.setText("Contact: " + emailAddress);
     }
 
+
+    // when there is a respond to the dialog box (allow or deny)
+    // the onRequestPermissionsResult() method is called passing in the response
+    // the readContact method is called when granted otherwise it is ignored.
 
     //https://developer.android.com/training/permissions/requesting.html
     @Override

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +24,18 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        Button signup_button = (Button) findViewById(R.id.signupButton);
+        signup_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                signup(view);
+            }
+        });
     }
 
 
-    public void signupPressed(View view) {
+    // details of new user created on sign up and saved in MyTweetApp Object
+    public void signup(View view) {
         TextView firstName = (TextView) findViewById(R.id.signupFirstName);
         TextView lastName = (TextView) findViewById(R.id.signupLastName);
         TextView email = (TextView) findViewById(R.id.signupEmail);
@@ -47,6 +56,7 @@ public class SignupActivity extends AppCompatActivity {
 
             mp = MediaPlayer.create(this, R.raw.valid);
             mp.start();
+
         } else {
             // https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
             Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -58,6 +68,8 @@ public class SignupActivity extends AppCompatActivity {
             mp.start();
         }
     }
+
+
 
     // helper method for Toast response
     private Toast createToastMessage(String string) {
