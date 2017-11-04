@@ -30,7 +30,7 @@ _Pressing “Tweet” generates ‘Message Sent’ toast_
 
 _Date is current date / time_
 
-_Navigate back from MyTweet via “back”button or action bar backoption" to Timeline
+_Navigate back from MyTweet via “back”button or action bar backoption" to Timeline_
 ***
 #### Timeline
 _Tweets appear in list in timeline_
@@ -57,7 +57,7 @@ _Timeline is saved, so when app is launched, the tweets are displayed (if there 
 _Long press on a tweet enables an individual tweet to be delete_
 ***
 #### Contact List Access_
-_Pressing “Contact” allows the user to select a contact from their contact list
+_Pressing “Contact” allows the user to select a contact from their contact list_
 
 _Their email is then displayed on the “Contact” button (Contact: homer@simpson.com)_
 ***
