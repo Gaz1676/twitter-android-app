@@ -13,6 +13,12 @@ import app.tweeting.fragments.TweetFragment;
 public class TweetActivity extends AppCompatActivity {
     ActionBar actionBar;
 
+    /**
+     * Tweet Activity Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html#/04
+     */
+
+    // called to do initial creation of the fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_container);

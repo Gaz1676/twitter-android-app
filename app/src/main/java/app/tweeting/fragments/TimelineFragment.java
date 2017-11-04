@@ -30,7 +30,14 @@ import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
 import app.tweeting.activities.SettingsActivity;
 
+
+/**
+ * Timeline Fragment Referenced from:
+ * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html
+ */
+
 public class TimelineFragment extends ListFragment implements OnItemClickListener, AbsListView.MultiChoiceModeListener {
+
     private ArrayList<Tweet> tweets;
     private Timeline timeline;
     private TweetAdapter adapter;
@@ -39,6 +46,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     MyTweetApp app;
 
 
+    // called to do initial creation of the fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +62,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
-
+    // creates and returns the view hierarchy associated with the fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         View v = super.onCreateView(inflater, parent, savedInstanceState);
@@ -65,7 +73,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     }
 
 
-
+    // called whenever a item gets clicked in the list fragment
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Tweet tweet = ((TweetAdapter) getListAdapter()).getItem(position);
@@ -104,8 +112,6 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
                 startActivityForResult(i, 0);
                 return true;
 
-
-
             case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
                 return true;
@@ -136,6 +142,10 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
         ((TweetAdapter) getListAdapter()).notifyDataSetChanged();
     }
 
+    /**
+     * MultiChoiceListener method Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic06-a/book-a-myrent-08%20(Deletion)/index.html#/03
+     */
 
     /* ************ MultiChoiceModeListener methods (begin) *********** */
     @Override
@@ -189,7 +199,6 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
 
 
     // the tweet adapter updates the list with the tweet objects contained in the timeline
-
     class TweetAdapter extends ArrayAdapter<Tweet> {
         private Context context;
 
@@ -199,6 +208,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
         }
 
 
+        // gets a View that displays the data at the specified position in the data set
         @SuppressLint("InflateParams")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {

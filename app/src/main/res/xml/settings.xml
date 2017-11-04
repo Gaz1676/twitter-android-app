@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <EditTextPreference
-        android:key="username"
-        android:summary="@string/username_summary"
-        android:title="@string/username"/>
+        android:key="firstName"
+        android:summary="@string/firstName_summary"
+        android:title="@string/firstName"
+        android:inputType="text"/>
+
+    <EditTextPreference
+        android:key="lastName"
+        android:summary="@string/lastName_summary"
+        android:title="@string/lastName"
+        android:inputType="text"/>
+
+    <EditTextPreference
+        android:key="email"
+        android:summary="@string/email_summary"
+        android:title="@string/email"
+        android:inputType="textEmailAddress"/>
 
     <EditTextPreference
         android:key="password"
@@ -11,16 +24,5 @@
         android:title="@string/password"
         android:inputType="textPassword"/>
 
-    <EditTextPreference
-        android:key="nmr_tweets"
-        android:summary="@string/nmr_tweets_summary"
-        android:title="@string/nmr_tweets"
-        android:inputType="text"/>
-
-    <EditTextPreference
-        android:key="refresh_interval"
-        android:summary="@string/set_refresh_interval_summary"
-        android:title="@string/set_refresh_interval"
-        android:inputType="text"/>
 
 </PreferenceScreen>

@@ -10,6 +10,13 @@ import app.tweeting.fragments.TimelineFragment;
 
 public class TimelineActivity extends AppCompatActivity {
 
+
+    /**
+     * Timeline Activity Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html#/04
+     */
+
+    // called to do initial creation of the fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

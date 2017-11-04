@@ -9,10 +9,18 @@ import app.tweeting.R;
 
 public class SplashActivity extends Activity {
 
+    /**
+     * Splash Activity Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic08-a/book-coffeemate-lab-04/index.html#/02
+     */
+
+    // setting back button pressed to a boolean
+    // duration of splash set to 1500ms
     private boolean mIsBackButtonPressed;
     private static final int SPLASH_DURATION = 1500;
 
 
+    // called to do initial creation of the fragment
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);

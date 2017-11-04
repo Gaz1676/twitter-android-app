@@ -46,13 +46,16 @@ import static app.tweeting.helpers.ContactHelper.getEmail;
 import static app.tweeting.helpers.ContactHelper.sendEmail;
 import static app.tweeting.helpers.IntentHelper.navigateUp;
 
+/**
+ * Tweet Fragment Referenced from:
+ * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html
+ */
 
 public class TweetFragment extends Fragment implements TextWatcher, OnClickListener,
         DatePickerDialog.OnDateSetListener {
 
 
     public static final String EXTRA_TWEET_ID = "mytweet.TWEET_ID";
-
     // id used for the implicit intent
     private static final int REQUEST_CONTACT = 1;
     
@@ -76,6 +79,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // called to do initial creation of the fragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +95,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // creates and returns the view hierarchy associated with the fragment.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreateView(inflater, parent, savedInstanceState);
@@ -125,6 +130,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // connects new menu to timeline Activity
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
@@ -132,6 +138,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // new instance created after selection from the menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -189,6 +196,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // onClick method activated when a button from menu is clicked
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -255,7 +263,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         }
     }
 
-
+    // reads the contact from the phone
     private void readContact() {
         String name = getContact(getActivity(), data);
         emailAddress = getEmail(getActivity(), data);
@@ -284,6 +292,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // sets the date to a certain style for the tweets after they are created
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         Date date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();

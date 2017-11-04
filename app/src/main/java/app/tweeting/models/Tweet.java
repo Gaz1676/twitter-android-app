@@ -16,6 +16,7 @@ public class Tweet {
     public String message;
     public Long userId;
 
+
     // string IDs of each field that are to be serialized
     private static final String JSON_ID = "id";
     private static final String JSON_DATE = "date";
@@ -24,6 +25,7 @@ public class Tweet {
     private static final String JSON_USERID = "userId";
 
 
+    // constructor
     public Tweet() {
         id = unsignedLong();
         date = new Date().getTime();
@@ -31,6 +33,7 @@ public class Tweet {
     }
 
 
+    // Generate a long greater than zero
     private Long unsignedLong() {
         long rndVal;
         do {
@@ -62,17 +65,19 @@ public class Tweet {
         return json;
     }
 
-
+    // message getter
     public String getMessage() {
         return message;
     }
 
 
+    // date String getter
     public String getDateString() {
         return dateString();
     }
 
 
+    // the date format set as a string
     private String dateString() {
         String dateFormat = "EEE d MMM yyyy H:mm";
         return android.text.format.DateFormat.format(dateFormat, date).toString();

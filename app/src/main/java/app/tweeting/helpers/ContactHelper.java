@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
+// helper used with the getting, displaying & sending email to contact
 public class ContactHelper {
 
 

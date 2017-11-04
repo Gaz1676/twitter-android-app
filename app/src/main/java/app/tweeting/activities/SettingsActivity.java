@@ -7,8 +7,13 @@ import android.view.Menu;
 
 import app.tweeting.fragments.SettingsFragment;
 
-public class SettingsActivity extends AppCompatActivity
-{
+/**
+ * Settings Activity Referenced from:
+ * https://wit-ictskills-2017.github.io/mobile-app-dev/topic06-b/book-a-settings/index.html#/MyRent-10 (Settings)
+ */
+
+public class SettingsActivity extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +27,6 @@ public class SettingsActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //getMenuInflater().inflate(R.menu.settings_menu, menu);
         return true;
     }
-
 }

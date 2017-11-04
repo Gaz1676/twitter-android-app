@@ -50,13 +50,13 @@
 
 
     //---------- SETTINGS -----------\\
-    <string name="username">Username</string>
-    <string name="username_summary">Please enter your user name</string>
+    <string name="firstName">First Name</string>
+    <string name="firstName_summary">Please enter your first name</string>
+    <string name="lastName">Last Name</string>
+    <string name="lastName_summary">Please enter your last name</string>
+    <string name="email">Email</string>
+    <string name="email_summary">Please enter your email address</string>
     <string name="password">Password</string>
     <string name="password_summary">You may set your password here</string>
-    <string name="nmr_tweets">Configure Downloads</string>
-    <string name="nmr_tweets_summary">How many Tweets to store locally?</string>
-    <string name="set_refresh_interval">Refresh</string>
-    <string name="set_refresh_interval_summary">Frequency of cloud updates (minutes)</string>
 
 </resources>

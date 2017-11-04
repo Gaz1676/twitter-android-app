@@ -4,7 +4,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import app.tweeting.R;
 
@@ -12,6 +15,10 @@ import static android.R.attr.key;
 import static app.tweeting.helpers.IntentHelper.navigateUp;
 import static app.tweeting.helpers.LogHelpers.info;
 
+/**
+ * Settings Fragment Referenced from:
+ * https://wit-ictskills-2017.github.io/mobile-app-dev/topic06-b/book-a-settings/index.html#/MyRent-10 (Settings)
+ */
 
 // implemented the SharedPreferences.OnSharedPreferenceChangeListener interface
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -30,8 +37,23 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
 
+    /**
+     * Changes to Settings Fragment BG Color Referenced from:
+     * https://stackoverflow.com/questions/16970209/preferencefragment-background-color
+     */
+
+    // changes the background color for the preference screen settings page
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = super.onCreateView(inflater, container, savedInstanceState);
+        view.setBackgroundColor(getResources().getColor(android.R.color.holo_blue_dark));
+
+        return view;
+    }
+
+
     // override onStart and initialize the SharePreference field
-    // registered the listener in onStart()
+    // register the listener in onStart()
     @Override
     public void onStart() {
         super.onStart();
@@ -40,7 +62,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
 
-    // unregistered the listeners in onStop()
+    // unregister the listener in onStop()
     @Override
     public void onStop() {
         super.onStop();
@@ -55,7 +77,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     }
 
 
-    // added the menu handler for the up button
+    // added the menu handler code for the up button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {

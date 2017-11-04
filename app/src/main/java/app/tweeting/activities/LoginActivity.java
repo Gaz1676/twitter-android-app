@@ -19,6 +19,12 @@ public class LoginActivity extends AppCompatActivity {
 
     MediaPlayer mp;
 
+    /**
+     * Login Activity Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic02-b/book-a-donation-03/index.html#/Donation-03
+     */
+
+    // called to do initial creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

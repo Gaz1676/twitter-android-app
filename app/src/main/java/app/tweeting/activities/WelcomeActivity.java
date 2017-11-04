@@ -16,6 +16,12 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     MediaPlayer mp;
 
 
+    /**
+     * Welcome Activity Referenced from:
+     * https://wit-ictskills-2017.github.io/mobile-app-dev/topic02-b/book-a-donation-03/index.html#/04
+     */
+
+    // called to do initial creation of the activity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +38,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
     }
 
 
+    // onClick method activated when a button from page is clicked
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

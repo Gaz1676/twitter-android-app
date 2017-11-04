@@ -25,12 +25,14 @@ public class Timeline {
     }
 
 
+    // method to add a tweet to the list
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
         this.saveTweets();
     }
 
 
+    // method to get a tweet by its id
     public Tweet getTweet(Long id) {
         Log.i(this.getClass().getSimpleName(), "Long parameter id: " + id);
 
@@ -43,13 +45,14 @@ public class Timeline {
     }
 
 
+    // method to delete tweet from list
     public void deleteTweet(Tweet tweet) {
         tweets.remove(tweet);
         saveTweets();
     }
 
 
-    // save method called when data may have changed
+    // method to save all the tweets to disk
     public boolean saveTweets() {
         try {
             tweetSerializer.saveTweets(tweets);
