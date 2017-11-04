@@ -10,14 +10,14 @@ import static app.tweeting.helpers.LogHelpers.info;
 public class Timeline {
 
     public ArrayList<Tweet> tweets;
-    private TweetSerializer tweetSerializer;
+    private TimelineSerializer serializer;
 
 
     // loads constructor with creation of timeline
-    public Timeline(TweetSerializer tweetSerializer) {
-        this.tweetSerializer = tweetSerializer;
+    public Timeline(TimelineSerializer serializer) {
+        this.serializer = serializer;
         try {
-            tweets = tweetSerializer.loadTweets();
+            tweets = serializer.loadTweets();
         } catch (Exception e) {
             info(this, "Error loading tweets: " + e.getMessage());
             tweets = new ArrayList<>();
@@ -28,7 +28,6 @@ public class Timeline {
     // method to add a tweet to the list
     public void addTweet(Tweet tweet) {
         tweets.add(tweet);
-        this.saveTweets();
     }
 
 
@@ -45,22 +44,22 @@ public class Timeline {
     }
 
 
-    // method to delete tweet from list
-    public void deleteTweet(Tweet tweet) {
-        tweets.remove(tweet);
-        saveTweets();
-    }
-
-
     // method to save all the tweets to disk
     public boolean saveTweets() {
         try {
-            tweetSerializer.saveTweets(tweets);
+            serializer.saveTweets(tweets);
             info(this, "Tweets saved to file");
             return true;
         } catch (Exception e) {
             info(this, "Error saving tweets: " + e.getMessage());
             return false;
         }
+    }
+
+
+    // method to delete tweet from list
+    public void deleteTweet(Tweet tweet) {
+        tweets.remove(tweet);
+        saveTweets();
     }
 }

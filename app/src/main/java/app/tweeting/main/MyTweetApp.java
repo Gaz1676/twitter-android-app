@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import app.tweeting.models.Timeline;
-import app.tweeting.models.TweetSerializer;
+import app.tweeting.models.TimelineSerializer;
 import app.tweeting.models.User;
 import app.tweeting.models.UserSerializer;
 import app.tweeting.models.UserStore;
@@ -30,9 +30,9 @@ public class MyTweetApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        TweetSerializer tweetSerializer = new TweetSerializer(this, FILENAME_TWEETS);
+        TimelineSerializer timelineSerializer = new TimelineSerializer(this, FILENAME_TWEETS);
         UserSerializer userSerializer = new UserSerializer(this, FILENAME_USERS);
-        timeline = new Timeline(tweetSerializer);
+        timeline = new Timeline(timelineSerializer);
         userStore = new UserStore(userSerializer);
         users = userStore.users;
         app = this;

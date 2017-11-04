@@ -30,7 +30,7 @@ _Pressing “Tweet” generates ‘Message Sent’ toast_
 
 _Date is current date / time_
 
-_Navigate back from MyTweet via “back”button or action bar backoption" to Timeline
+_Navigate back from MyTweet via “back”button or action bar backoption" to Timeline_
 ***
 #### Timeline
 _Tweets appear in list in timeline_
@@ -57,12 +57,12 @@ _Timeline is saved, so when app is launched, the tweets are displayed (if there 
 _Long press on a tweet enables an individual tweet to be delete_
 ***
 #### Contact List Access_
-_Pressing “Contact” allows the user to select a contact from their contact list
+_Pressing “Contact” allows the user to select a contact from their contact list_
 
 _Their email is then displayed on the “Contact” button (Contact: homer@simpson.com)_
 ***
 #### Email Access
-_• Pressing “Send Tweet via Email” displays email application, which will contain email and tweet text_
+_Pressing “Send Tweet via Email” displays email application, which will contain email and tweet text_
 ***
 #### Settings Support
 _“Settings” menu option brings up the settings screen_
@@ -71,9 +71,10 @@ _The values entered will be saved and restored when the application is relaunche
 ***
 # &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MyTweetApp Screenshots
 
-<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h400,w_200/v1509763866/splash_jraolg.jpg"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1507476493/login_es9uf9.png"/>
 
-<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1507476493/signup_iexta6.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1507476493/login_es9uf9.png"/>
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1509763866/splash_jraolg.jpg"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1507476493/welcome_tyc5dj.png" />
 
-<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1509763866/timeline_hc9wef.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1509763866/tweet_zaghvn.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_400,w_200/v1509763866/settings_swdvh5.png"/>
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1507476493/signup_iexta6.png" /> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1507476493/login_es9uf9.png"/>
+
+<img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1509763866/timeline_hc9wef.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1509763866/tweet_zaghvn.png"/> <img src="http://res.cloudinary.com/cloud101/image/upload/c_scale,h_500,w_250/v1509763866/settings_swdvh5.png"/>
 

@@ -19,13 +19,13 @@ import java.util.ArrayList;
 // a class to orchestrate the serialization of a
 // collection of tweet objects to / from disk
 
-public class TweetSerializer {
+public class TimelineSerializer {
 
     private Context mContext;
     private String mFilename;
 
 
-    public TweetSerializer(Context c, String f) {
+    public TimelineSerializer(Context c, String f) {
         mContext = c;
         mFilename = f;
     }

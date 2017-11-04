@@ -14,7 +14,6 @@ public class Tweet {
     public Long date;
     public String contact;
     public String message;
-    public Long userId;
 
 
     // string IDs of each field that are to be serialized
@@ -22,7 +21,6 @@ public class Tweet {
     private static final String JSON_DATE = "date";
     private static final String JSON_CONTACT = "contact";
     private static final String JSON_MESSAGE = "message";
-    private static final String JSON_USERID = "userId";
 
 
     // constructor
@@ -49,7 +47,6 @@ public class Tweet {
         date = json.getLong(JSON_DATE);
         contact = json.getString(JSON_CONTACT);
         message = json.getString(JSON_MESSAGE);
-        userId = json.getLong(JSON_USERID);
     }
 
 
@@ -60,7 +57,6 @@ public class Tweet {
         json.put(JSON_DATE, date);
         json.put(JSON_CONTACT, contact);
         json.put(JSON_MESSAGE, message);
-        json.put(JSON_USERID, userId);
 
         return json;
     }
