@@ -62,7 +62,7 @@ _Pressing “Contact” allows the user to select a contact from their contact l
 _Their email is then displayed on the “Contact” button (Contact: homer@simpson.com)_
 ***
 #### Email Access
-_• Pressing “Send Tweet via Email” displays email application, which will contain email and tweet text_
+_Pressing “Send Tweet via Email” displays email application, which will contain email and tweet text_
 ***
 #### Settings Support
 _“Settings” menu option brings up the settings screen_
