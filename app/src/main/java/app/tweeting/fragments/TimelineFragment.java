@@ -1,8 +1,15 @@
+/**
+ * Author: Gary Fleming
+ * Student No: 20019497
+ * Start Date: Sept 24th 2017
+ */
+
 package app.tweeting.fragments;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.ActionMode;
@@ -44,6 +51,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     private ListView listView; // multi choice mode field
 
     MyTweetApp app;
+    MediaPlayer mp;
 
 
     // called to do initial creation of the fragment
@@ -106,22 +114,31 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
             case R.id.menu_item_new_tweet:
                 Tweet tweet = new Tweet();
                 timeline.addTweet(tweet);
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
 
                 Intent i = new Intent(getActivity(), TweetActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
                 startActivityForResult(i, 0);
                 return true;
 
+
             case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 return true;
+
 
             case R.id.clear:
                 for (int x  = tweets.size()  - 1; x >= 0; x--) {
                     timeline.deleteTweet(tweets.get(x));
                     adapter.notifyDataSetChanged();
                 }
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 return true;
+
 
             case R.id.logout:
                 Intent in = new Intent(getActivity(), WelcomeActivity.class);

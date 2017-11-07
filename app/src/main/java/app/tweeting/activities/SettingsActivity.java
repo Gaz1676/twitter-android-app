@@ -1,3 +1,9 @@
+/**
+ * Author: Gary Fleming
+ * Student No: 20019497
+ * Start Date: Sept 24th 2017
+ */
+
 package app.tweeting.activities;
 
 

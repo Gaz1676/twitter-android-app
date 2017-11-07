@@ -1,11 +1,20 @@
+/**
+ * Author: Gary Fleming
+ * Student No: 20019497
+ * Start Date: Sept 24th 2017
+ */
+
 package app.tweeting.fragments;
 
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -24,7 +33,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -34,6 +42,7 @@ import app.tweeting.activities.SettingsActivity;
 import app.tweeting.activities.TimelineActivity;
 import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
+import app.tweeting.helpers.ToastHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
@@ -58,7 +67,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public static final String EXTRA_TWEET_ID = "mytweet.TWEET_ID";
     // id used for the implicit intent
     private static final int REQUEST_CONTACT = 1;
-    
+
     private EditText message;
     private TextView date;
     private Button tweetButton;
@@ -73,7 +82,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
     private String emailAddress = "";
     MyTweetApp app;
-
+    MediaPlayer mp;
 
     public TweetFragment() {
     }
@@ -86,7 +95,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         setHasOptionsMenu(true);
 
         //Recover the ID passed to us via the intent in TimelineActivity
-        // Long tweetId = (Long) getActivity().getIntent().getSerializableExtra("EXTRA_TWEET_ID");
         Long tweetId = (Long) getActivity().getIntent().getSerializableExtra(EXTRA_TWEET_ID);
 
         app = MyTweetApp.getApp();
@@ -143,13 +151,23 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case id.timeline:
+                if (message.getText().length() > 0) {
+                    tweet.message = message.getText().toString();
+                    navigateUp(getActivity());
+                    timeline.saveTweets();
+                } else {
                     timeline.deleteTweet(tweet);
+                }
 
                 startActivity(new Intent(getActivity(), TimelineActivity.class));
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 return true;
 
             case id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 return true;
 
             case id.logout:
@@ -173,6 +191,8 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             tweet.message = message.getText().toString();
             navigateUp(getActivity());
             timeline.saveTweets();
+            mp = MediaPlayer.create(getActivity(), R.raw.valid);
+            mp.start();
         } else {
             timeline.deleteTweet(tweet);
         }
@@ -205,10 +225,16 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                     tweet.message = message.getText().toString();
                     IntentHelper.startActivity(getActivity(), TimelineActivity.class);
                     timeline.saveTweets();
-
+                    mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                    mp.start();
                     break;
+
                 } else {
-                    createToastMessage("You forgot to enter your message!!").show();
+                    ToastHelper.createToastMessage(getActivity(), "You forgot to enter your message!!");
+                    Vibrator vibes = (Vibrator) app.getSystemService(Context.VIBRATOR_SERVICE);
+                    vibes.vibrate(500);
+                    mp = MediaPlayer.create(getActivity(), R.raw.invalid);
+                    mp.start();
                     break;
                 }
 
@@ -216,14 +242,18 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             case id.contactButton:
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 if (tweet.contact != null) {
                     contactButton.setText("Contact: " + emailAddress);
                 }
-
-
                 break;
+
+
             case id.emailButton:
                 sendEmail(getActivity(), emailAddress, getString(string.email_subject), tweet.getMessage());
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 break;
         }
     }
@@ -298,11 +328,5 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         Date date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
         tweet.date = date.getTime();
         tweetButton.setText(tweet.getDateString());
-    }
-
-
-    // created a helper method for Toast response
-    private Toast createToastMessage(String string) {
-        return Toast.makeText(app.getApplicationContext(), string, Toast.LENGTH_SHORT);
     }
 }

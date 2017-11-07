@@ -1,6 +1,13 @@
+/**
+ * Author: Gary Fleming
+ * Student No: 20019497
+ * Start Date: Sept 24th 2017
+ */
+
 package app.tweeting.fragments;
 
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
@@ -26,6 +33,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     // added a SharedPreference field
     private SharedPreferences prefs;
+    MediaPlayer mp;
 
 
     @Override
@@ -83,6 +91,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         switch (item.getItemId()) {
             case android.R.id.home:
                 navigateUp(getActivity());
+                mp = MediaPlayer.create(getActivity(), R.raw.valid);
+                mp.start();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

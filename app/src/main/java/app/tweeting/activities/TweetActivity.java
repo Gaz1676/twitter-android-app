@@ -1,3 +1,9 @@
+/**
+ * Author: Gary Fleming
+ * Student No: 20019497
+ * Start Date: Sept 24th 2017
+ */
+
 package app.tweeting.activities;
 
 import android.os.Bundle;
@@ -11,6 +17,7 @@ import app.tweeting.fragments.TweetFragment;
 
 
 public class TweetActivity extends AppCompatActivity {
+
     ActionBar actionBar;
 
     /**
