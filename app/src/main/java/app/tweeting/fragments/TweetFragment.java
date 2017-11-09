@@ -41,7 +41,6 @@ import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
 import app.tweeting.helpers.MediaPlayerHelper;
 import app.tweeting.helpers.ToastHelper;
-import app.tweeting.helpers.VibrateHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
@@ -224,7 +223,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
                 } else {
                     ToastHelper.createToastMessage(getActivity(), "You forgot to enter your message!!");
-                    VibrateHelper.vibrator(getActivity());
                     MediaPlayerHelper.invalidInput(getActivity());
                     break;
                 }

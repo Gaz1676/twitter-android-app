@@ -17,7 +17,6 @@ import app.tweeting.R;
 import app.tweeting.helpers.MediaPlayerHelper;
 import app.tweeting.helpers.ToastHelper;
 import app.tweeting.helpers.ValidateHelper;
-import app.tweeting.helpers.VibrateHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.User;
 
@@ -52,37 +51,31 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if (!ValidateHelper.isValidInput(firstName.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             firstName.setError("Please input first name");
 
 
         } else if (!ValidateHelper.isValidName(firstName.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             firstName.setError("Only use letters");
 
 
         } else if (!ValidateHelper.isValidInput(lastName.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             lastName.setError("Please input last name");
 
 
         } else if (!ValidateHelper.isValidName(lastName.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             lastName.setError("Only use letters");
 
 
         } else if (!ValidateHelper.isValidEmail(email.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             email.setError("Please enter a valid email");
 
 
         } else if (!ValidateHelper.isValidInput(password.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             password.setError("Please enter password");
 

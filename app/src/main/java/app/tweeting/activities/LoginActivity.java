@@ -17,7 +17,6 @@ import app.tweeting.R;
 import app.tweeting.helpers.MediaPlayerHelper;
 import app.tweeting.helpers.ToastHelper;
 import app.tweeting.helpers.ValidateHelper;
-import app.tweeting.helpers.VibrateHelper;
 import app.tweeting.main.MyTweetApp;
 
 
@@ -53,21 +52,18 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (!ValidateHelper.isValidInput(email.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidEmail(email.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidInput(password.getText().toString())) {
-            VibrateHelper.vibrator(this);
             MediaPlayerHelper.invalidInput(this);
             password.setError("Please enter password");
             notValidated = true;
@@ -76,7 +72,6 @@ public class LoginActivity extends AppCompatActivity {
         } else if (app.validUser(email.getText().toString(), password.getText().toString())) {
             MediaPlayerHelper.validInput(this);
             ToastHelper.createToastMessage(this, "Welcome to MyTweetApp!");
-
             startActivity(new Intent(this, TimelineActivity.class));
         }
     }

@@ -8,6 +8,7 @@ package app.tweeting.helpers;
 
 import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Vibrator;
 
 import app.tweeting.R;
 
@@ -15,6 +16,7 @@ import app.tweeting.R;
  * MediaPlayerHelper is used across multiple classes
  * MediaPlayer feature plays audio when something is activated
  * There is audio for welcome startup, valid and invalid selections
+ * Invalid selection vibrates when invalid input is selected
  * The Helper is used to reduce code (DRY) where necessary
  */
 
@@ -40,6 +42,9 @@ public class MediaPlayerHelper {
 
     // sound for invalid selection or input
     public static void invalidInput(Context context) {
+        Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+        assert v != null;
+        v.vibrate(500);
         mp = MediaPlayer.create(context, R.raw.invalid);
         mp.start();
     }
