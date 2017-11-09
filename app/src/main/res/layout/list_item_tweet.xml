@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:textAlignment="center">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/RowImage"
         android:layout_width="30dp"
         android:layout_height="30dp"
