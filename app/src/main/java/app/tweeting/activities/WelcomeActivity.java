@@ -7,20 +7,17 @@
 package app.tweeting.activities;
 
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 
 import app.tweeting.R;
+import app.tweeting.helpers.MediaPlayerHelper;
 
 import static app.tweeting.helpers.LogHelpers.info;
 
 public class WelcomeActivity extends AppCompatActivity implements View.OnClickListener {
-
-    MediaPlayer mp;
-
 
     /**
      * Welcome Activity Referenced from:
@@ -39,8 +36,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
         login_button.setOnClickListener(this);
         signup_button.setOnClickListener(this);
 
-        mp = MediaPlayer.create(this, R.raw.welcome_chirp);
-        mp.start();
+        MediaPlayerHelper.welcome(this);
     }
 
 
@@ -51,16 +47,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.loginButton:
                 info(this, "Login Pressed");
                 startActivity(new Intent(this, LoginActivity.class));
-                mp = MediaPlayer.create(this, R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(this);
                 break;
 
 
             case R.id.signupButton:
                 info(this, "Signup Pressed");
                 startActivity(new Intent(this, SignupActivity.class));
-                mp = MediaPlayer.create(this, R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(this);
                 break;
         }
     }

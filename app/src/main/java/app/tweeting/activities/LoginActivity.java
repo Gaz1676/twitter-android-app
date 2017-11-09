@@ -6,25 +6,23 @@
 
 package app.tweeting.activities;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import app.tweeting.R;
+import app.tweeting.helpers.MediaPlayerHelper;
 import app.tweeting.helpers.ToastHelper;
 import app.tweeting.helpers.ValidateHelper;
+import app.tweeting.helpers.VibrateHelper;
 import app.tweeting.main.MyTweetApp;
 
 
 public class LoginActivity extends AppCompatActivity {
 
-    MediaPlayer mp;
     boolean notValidated;
 
     /**
@@ -48,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
 
 
     // checks to see if the inputted data matches the user
-    // https://stackoverflow.com/questions/12266502/android-mediaplayer-stop-and-play
     public void login(View view) {
         MyTweetApp app = (MyTweetApp) getApplication();
         TextView email = (TextView) findViewById(R.id.loginEmail);
@@ -56,36 +53,28 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (!ValidateHelper.isValidInput(email.getText().toString())) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(500);
-            mp = MediaPlayer.create(this, R.raw.invalid);
-            mp.start();
+            VibrateHelper.vibrator(this);
+            MediaPlayerHelper.invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidEmail(email.getText().toString())) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(500);
-            mp = MediaPlayer.create(this, R.raw.invalid);
-            mp.start();
+            VibrateHelper.vibrator(this);
+            MediaPlayerHelper.invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidInput(password.getText().toString())) {
-            Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
-            v.vibrate(500);
-            mp = MediaPlayer.create(this, R.raw.invalid);
-            mp.start();
+            VibrateHelper.vibrator(this);
+            MediaPlayerHelper.invalidInput(this);
             password.setError("Please enter password");
             notValidated = true;
 
 
         } else if (app.validUser(email.getText().toString(), password.getText().toString())) {
-            mp = MediaPlayer.create(this, R.raw.valid);
-            mp.start();
-
+            MediaPlayerHelper.validInput(this);
             ToastHelper.createToastMessage(this, "Welcome to MyTweetApp!");
 
             startActivity(new Intent(this, TimelineActivity.class));

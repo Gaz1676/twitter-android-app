@@ -9,12 +9,9 @@ package app.tweeting.fragments;
 import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Vibrator;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -42,7 +39,9 @@ import app.tweeting.activities.SettingsActivity;
 import app.tweeting.activities.TimelineActivity;
 import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
+import app.tweeting.helpers.MediaPlayerHelper;
 import app.tweeting.helpers.ToastHelper;
+import app.tweeting.helpers.VibrateHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
@@ -82,7 +81,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
     private String emailAddress = "";
     MyTweetApp app;
-    MediaPlayer mp;
 
     public TweetFragment() {
     }
@@ -160,14 +158,12 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                 }
 
                 startActivity(new Intent(getActivity(), TimelineActivity.class));
-                mp = MediaPlayer.create(getActivity(), R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(getActivity());
                 return true;
 
             case id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
-                mp = MediaPlayer.create(getActivity(), R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(getActivity());
                 return true;
 
             case id.logout:
@@ -191,8 +187,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             tweet.message = message.getText().toString();
             navigateUp(getActivity());
             timeline.saveTweets();
-            mp = MediaPlayer.create(getActivity(), R.raw.valid);
-            mp.start();
+            MediaPlayerHelper.validInput(getActivity());
         } else {
             timeline.deleteTweet(tweet);
         }
@@ -225,16 +220,12 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                     tweet.message = message.getText().toString();
                     IntentHelper.startActivity(getActivity(), TimelineActivity.class);
                     timeline.saveTweets();
-                    mp = MediaPlayer.create(getActivity(), R.raw.valid);
-                    mp.start();
                     break;
 
                 } else {
                     ToastHelper.createToastMessage(getActivity(), "You forgot to enter your message!!");
-                    Vibrator vibes = (Vibrator) app.getSystemService(Context.VIBRATOR_SERVICE);
-                    vibes.vibrate(500);
-                    mp = MediaPlayer.create(getActivity(), R.raw.invalid);
-                    mp.start();
+                    VibrateHelper.vibrator(getActivity());
+                    MediaPlayerHelper.invalidInput(getActivity());
                     break;
                 }
 
@@ -242,8 +233,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             case id.contactButton:
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
-                mp = MediaPlayer.create(getActivity(), R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(getActivity());
                 if (tweet.contact != null) {
                     contactButton.setText("Contact: " + emailAddress);
                 }
@@ -252,8 +242,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
             case id.emailButton:
                 sendEmail(getActivity(), emailAddress, getString(string.email_subject), tweet.getMessage());
-                mp = MediaPlayer.create(getActivity(), R.raw.valid);
-                mp.start();
+                MediaPlayerHelper.validInput(getActivity());
                 break;
         }
     }
@@ -311,9 +300,11 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case REQUEST_CONTACT: {
+
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
                     // permission was granted
                     readContact();
                 }
