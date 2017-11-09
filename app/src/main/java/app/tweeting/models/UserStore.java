@@ -16,14 +16,14 @@ import static app.tweeting.helpers.LogHelpers.info;
 public class UserStore {
 
     public ArrayList<User> users;
-    private UserSerializer userSerializer;
+    private UserSerializer serializer;
 
 
     // loads constructor with creation of userStore
-    public UserStore(UserSerializer userSerializer) {
-        this.userSerializer = userSerializer;
+    public UserStore(UserSerializer serializer) {
+        this.serializer = serializer;
         try {
-            users = userSerializer.loadUsers();
+            users = serializer.loadUsers();
         } catch (Exception e) {
             info(this, "Error loading users: " + e.getMessage());
             users = new ArrayList<>();
@@ -54,7 +54,7 @@ public class UserStore {
     // method to save all the users to disk
     public boolean saveUsers() {
         try {
-            userSerializer.saveUsers(users);
+            serializer.saveUsers(users);
             info(this, "Users saved to file");
             return true;
         } catch (Exception e) {

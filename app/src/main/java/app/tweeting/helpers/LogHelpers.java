@@ -8,8 +8,13 @@ package app.tweeting.helpers;
 
 import android.util.Log;
 
-public class LogHelpers {
+/**
+ * LogHelper is used across multiple classes
+ * Log feature logs info to the console
+ * The Helper is used to reduce code (DRY) where necessary
+ */
 
+public class LogHelpers {
 
     public static void info(Object parent, String message) {
         Log.i(parent.getClass().getSimpleName(), message);

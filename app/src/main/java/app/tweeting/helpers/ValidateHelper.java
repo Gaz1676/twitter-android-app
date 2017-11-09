@@ -6,25 +6,30 @@
 
 package app.tweeting.helpers;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+/**
+ * ValidateHelper is used in the signup / login classes
+ * It is used to validate user email
+ * It is used to validate the user name (only letters to be used)
+ * It is used to validate that the input is valid and not empty
+ */
+
+// https://stackoverflow.com/questions/22505336/email-and-phone-number-validation-in-android
+// https://stackoverflow.com/questions/35933361/android-studio-regular-expression
 
 public class ValidateHelper {
 
-    // https://stackoverflow.com/questions/12947620/email-address-validation-in-android-on-edittext
+
     public static boolean isValidEmail(String email) {
-        String emailRegex = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+        return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     }
 
+
     public static boolean isValidName(String name) {
-        String emailRegex = "[A-Za-z]+";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
+        return Pattern.compile("[A-Za-z]+").matcher(name).matches();
     }
+
 
     public static boolean isValidInput(String string) {
         return !string.isEmpty();

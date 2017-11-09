@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 public class UserSerializer {
 
-    private Context mContext;
-    private String mFilename;
+    private Context Context;
+    private String Filename;
 
 
-    public UserSerializer(Context c, String f) {
-        mContext = c;
-        mFilename = f;
+    public UserSerializer(Context context, String filename) {
+        Context = context;
+        Filename = filename;
     }
 
 
@@ -42,13 +42,13 @@ public class UserSerializer {
 
         // places each user in turn into the object
         JSONArray array = new JSONArray();
-        for (User c : users)
-            array.put(c.toJSON());
+        for (User user : users)
+            array.put(user.toJSON());
 
         // write the file to file / disk
         Writer writer = null;
         try {
-            OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
+            OutputStream out = Context.openFileOutput(Filename, Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(array.toString());
         } finally {
@@ -67,7 +67,7 @@ public class UserSerializer {
 
         try {
             // open and read the file into a StringBuilder
-            InputStream in = mContext.openFileInput(mFilename);
+            InputStream in = Context.openFileInput(Filename);
             reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder jsonString = new StringBuilder();
             String line;
@@ -81,6 +81,7 @@ public class UserSerializer {
             // tokenizes the string into individual json objects
             // parse the JSON using JSONTokener
             JSONArray array = (JSONArray) new JSONTokener(jsonString.toString()).nextValue();
+
 
             // build the array of users from JSONObjects
             // add to our user list

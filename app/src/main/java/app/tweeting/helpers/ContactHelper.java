@@ -15,24 +15,15 @@ import android.net.Uri;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
+/**
+ * ContactHelper is used for getting a contact,
+ *                             displaying a contact
+ *                                & sending emails to a contact
+ * The Helper is used to reduce code (DRY) where necessary
+ */
+
 // helper used with the getting, displaying & sending email to contact
 public class ContactHelper {
-
-
-    public static String getDisplayName(Context context, Intent data) {
-        String contact = "unable to find contact";
-        Uri contactUri = data.getData();
-        String[] queryFields = new String[]{ContactsContract.Contacts.DISPLAY_NAME};
-        Cursor c = context.getContentResolver().query(contactUri, queryFields, null, null, null);
-        if (c.getCount() == 0) {
-            c.close();
-            return contact;
-        }
-        c.moveToFirst();
-        contact = c.getString(0);
-        c.close();
-        return contact;
-    }
 
 
     public static String getContact(Context context, Intent data) {
