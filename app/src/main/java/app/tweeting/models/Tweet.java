@@ -20,6 +20,7 @@ public class Tweet {
     public Long date;
     public String contact;
     public String message;
+    private Long userId;
 
 
     // string IDs of each field that are to be serialized
@@ -27,13 +28,16 @@ public class Tweet {
     private static final String JSON_DATE = "date";
     private static final String JSON_CONTACT = "contact";
     private static final String JSON_MESSAGE = "message";
+    private static final String JSON_USER_ID = "userid";
 
 
     // constructor
-    public Tweet() {
+    public Tweet(Long userId) {
         id = unsignedLong();
         date = new Date().getTime();
+        message="";
         contact = ":none presently";
+        this.userId = userId;
     }
 
 
@@ -53,6 +57,8 @@ public class Tweet {
         date = json.getLong(JSON_DATE);
         contact = json.getString(JSON_CONTACT);
         message = json.getString(JSON_MESSAGE);
+        userId = json.getLong(JSON_USER_ID);
+
     }
 
 
@@ -63,9 +69,16 @@ public class Tweet {
         json.put(JSON_DATE, date);
         json.put(JSON_CONTACT, contact);
         json.put(JSON_MESSAGE, message);
-
+        json.put(JSON_USER_ID, Long.toString(userId));
         return json;
     }
+
+
+    // message setter
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
 
     // message getter
     public String getMessage() {
@@ -84,4 +97,9 @@ public class Tweet {
         String dateFormat = "EEE d MMM yyyy H:mm";
         return android.text.format.DateFormat.format(dateFormat, date).toString();
     }
+
+    public Long getUserId() {
+        return userId;
+    }
+
 }
