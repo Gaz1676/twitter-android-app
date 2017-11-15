@@ -13,7 +13,7 @@ import android.view.View;
 import android.widget.Button;
 
 import app.tweeting.R;
-import app.tweeting.helpers.MediaPlayerHelper;
+import static app.tweeting.helpers.MediaPlayerHelper.*;
 
 import static app.tweeting.helpers.LogHelpers.info;
 
@@ -35,8 +35,7 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
 
         login_button.setOnClickListener(this);
         signup_button.setOnClickListener(this);
-
-        MediaPlayerHelper.welcome(this);
+        welcome(this);
     }
 
 
@@ -47,14 +46,14 @@ public class WelcomeActivity extends AppCompatActivity implements View.OnClickLi
             case R.id.loginButton:
                 info(this, "Login Pressed");
                 startActivity(new Intent(this, LoginActivity.class));
-                MediaPlayerHelper.validInput(this);
+                validInput(this);
                 break;
 
 
             case R.id.signupButton:
                 info(this, "Signup Pressed");
                 startActivity(new Intent(this, SignupActivity.class));
-                MediaPlayerHelper.validInput(this);
+                validInput(this);
                 break;
         }
     }

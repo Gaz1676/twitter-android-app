@@ -21,6 +21,7 @@ import app.tweeting.R;
  */
 
 // https://stackoverflow.com/questions/12266502/android-mediaplayer-stop-and-play
+// https://stackoverflow.com/questions/13950338/how-to-make-an-android-device-vibrate
 
 public class MediaPlayerHelper {
     private static MediaPlayer mp;
@@ -41,6 +42,7 @@ public class MediaPlayerHelper {
 
 
     // sound for invalid selection or input
+    // vibrate feature when invalid input is selected
     public static void invalidInput(Context context) {
         Vibrator v = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
         assert v != null;
@@ -51,7 +53,7 @@ public class MediaPlayerHelper {
 
 
     // sound for delete tweet method
-    public static void deleteTweet(Context context) {
+    public static void removeTweetSound(Context context) {
         mp = MediaPlayer.create(context, R.raw.swish);
         mp.start();
     }

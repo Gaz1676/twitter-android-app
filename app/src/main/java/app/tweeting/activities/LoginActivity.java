@@ -3,7 +3,6 @@
  * Student No: 20019497
  * Start Date: Sept 24th 2017
  */
-
 package app.tweeting.activities;
 
 import android.content.Intent;
@@ -14,11 +13,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import app.tweeting.R;
-import app.tweeting.helpers.MediaPlayerHelper;
-import app.tweeting.helpers.ToastHelper;
 import app.tweeting.helpers.ValidateHelper;
 import app.tweeting.main.MyTweetApp;
 
+import static app.tweeting.helpers.MediaPlayerHelper.invalidInput;
+import static app.tweeting.helpers.MediaPlayerHelper.validInput;
+import static app.tweeting.helpers.ToastHelper.createToastMessage;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -52,26 +52,26 @@ public class LoginActivity extends AppCompatActivity {
 
 
         if (!ValidateHelper.isValidInput(email.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidEmail(email.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             email.setError("Please enter a valid email");
             notValidated = true;
 
 
         } else if (!ValidateHelper.isValidInput(password.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             password.setError("Please enter password");
             notValidated = true;
 
 
         } else if (app.validUser(email.getText().toString(), password.getText().toString())) {
-            MediaPlayerHelper.validInput(this);
-            ToastHelper.createToastMessage(this, "Welcome to MyTweetApp!");
+            validInput(this);
+            createToastMessage(this, "Welcome to MyTweetApp!");
             startActivity(new Intent(this, TimelineActivity.class));
         }
     }

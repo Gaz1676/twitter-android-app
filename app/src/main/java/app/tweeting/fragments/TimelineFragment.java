@@ -32,12 +32,15 @@ import app.tweeting.R;
 import app.tweeting.activities.SettingsActivity;
 import app.tweeting.activities.TweetActivity;
 import app.tweeting.activities.WelcomeActivity;
-import app.tweeting.helpers.IntentHelper;
-import app.tweeting.helpers.MediaPlayerHelper;
-import app.tweeting.helpers.ToastHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
+
+import static app.tweeting.helpers.IntentHelper.startActivityWithData;
+import static app.tweeting.helpers.MediaPlayerHelper.removeTweetSound;
+import static app.tweeting.helpers.MediaPlayerHelper.validInput;
+import static app.tweeting.helpers.ToastHelper.createToastMessage;
+import static app.tweeting.helpers.ToastHelper.dialogBox;
 
 
 /**
@@ -95,7 +98,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Tweet tweet = adapter.getItem(position);
-        IntentHelper.startActivityWithData(getActivity(), TweetActivity.class, tweet.id);
+        startActivityWithData(getActivity(), TweetActivity.class, tweet.id);
     }
 
 
@@ -112,9 +115,10 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_new_tweet:
-                Tweet tweet = new Tweet();
+                Tweet tweet = new Tweet(app.currentUser.id);
+
                 timeline.addTweet(tweet);
-                MediaPlayerHelper.validInput(getActivity());
+                validInput(getActivity());
 
                 Intent i = new Intent(getActivity(), TweetActivity.class);
                 i.putExtra(TweetFragment.EXTRA_TWEET_ID, tweet.id);
@@ -124,7 +128,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
 
             case R.id.settings:
                 startActivity(new Intent(getActivity(), SettingsActivity.class));
-                MediaPlayerHelper.validInput(getActivity());
+                validInput(getActivity());
                 return true;
 
 
@@ -133,7 +137,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
                     timeline.deleteTweet(tweets.get(x));
                     adapter.notifyDataSetChanged();
                 }
-                MediaPlayerHelper.validInput(getActivity());
+                validInput(getActivity());
                 return true;
 
 
@@ -183,7 +187,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
         if (menuItem.getItemId() == R.id.menu_item_delete_tweet) {
 
             // Dialog box to confirm delete tweets
-            ToastHelper.dialogBox(getActivity(),
+            dialogBox(getActivity(),
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // Close action bar
@@ -193,8 +197,8 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
                         public void onClick(DialogInterface dialog, int which) {
                             // continue with delete
                             deleteTweet(action);
-                            MediaPlayerHelper.deleteTweet(getActivity());
-                            ToastHelper.createToastMessage(getActivity(), "Tweet(s) deleted!");
+                            removeTweetSound(getActivity());
+                            createToastMessage(getActivity(), "Tweet(s) deleted!");
                         }
                     });
             return true;

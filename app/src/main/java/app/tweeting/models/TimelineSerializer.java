@@ -27,13 +27,13 @@ import java.util.ArrayList;
 
 public class TimelineSerializer {
 
-    private Context mContext;
-    private String mFilename;
+    private Context Context;
+    private String Filename;
 
 
-    public TimelineSerializer(Context c, String f) {
-        mContext = c;
-        mFilename = f;
+    public TimelineSerializer(Context context, String filename) {
+        Context = context;
+        Filename = filename;
     }
 
 
@@ -48,7 +48,7 @@ public class TimelineSerializer {
         // write the file to file / disk
         Writer writer = null;
         try {
-            OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
+            OutputStream out = Context.openFileOutput(Filename, android.content.Context.MODE_PRIVATE);
             writer = new OutputStreamWriter(out);
             writer.write(array.toString());
         } finally {
@@ -67,7 +67,7 @@ public class TimelineSerializer {
 
         try {
             // open and read the file into a StringBuilder
-            InputStream in = mContext.openFileInput(mFilename);
+            InputStream in = Context.openFileInput(Filename);
             reader = new BufferedReader(new InputStreamReader(in));
             StringBuilder jsonString = new StringBuilder();
             String line;

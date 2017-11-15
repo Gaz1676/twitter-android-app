@@ -26,7 +26,7 @@ public class ToastHelper {
 
     // pop up message info box
     public static void createToastMessage(Activity parent, String message) {
-        Toast toast = Toast.makeText(parent, message, Toast.LENGTH_LONG);
+        Toast toast = Toast.makeText(parent, message, Toast.LENGTH_SHORT);
         toast.show();
     }
 

@@ -1,14 +1,8 @@
-/**
- * Author: Gary Fleming
- * Student No: 20019497
- * Start Date: Sept 24th 2017
- */
-
 package app.tweeting.fragments;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -16,63 +10,48 @@ import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.Date;
-import java.util.GregorianCalendar;
-
 import app.tweeting.R;
-import app.tweeting.activities.SettingsActivity;
-import app.tweeting.activities.TimelineActivity;
-import app.tweeting.activities.WelcomeActivity;
-import app.tweeting.helpers.IntentHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
 import app.tweeting.models.Tweet;
+import app.tweeting.models.User;
 
-import static app.tweeting.R.id;
-import static app.tweeting.R.layout;
-import static app.tweeting.R.string;
 import static app.tweeting.helpers.ContactHelper.getContact;
 import static app.tweeting.helpers.ContactHelper.getEmail;
 import static app.tweeting.helpers.ContactHelper.sendEmail;
 import static app.tweeting.helpers.IntentHelper.navigateUp;
-import static app.tweeting.helpers.MediaPlayerHelper.invalidInput;
 import static app.tweeting.helpers.MediaPlayerHelper.validInput;
-import static app.tweeting.helpers.ToastHelper.createToastMessage;
 
 /**
- * Tweet Fragment Referenced from:
+ * Read Tweet Fragment Referenced from:
  * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html
+ * <p>
+ * this class is used for when a user clicks on any given tweet and is shown:
+ * .. if it is users tweet they can edit it otherwise
+ * .... the tweet is a Read Only tweet and can not be edited only viewed
  */
 
-public class TweetFragment extends Fragment implements TextWatcher, OnClickListener,
-        DatePickerDialog.OnDateSetListener {
+public class ReadTweetFragment extends Fragment implements View.OnClickListener {
 
-
-    public static final String EXTRA_TWEET_ID = "mytweet.TWEET_ID";
     private static final int REQUEST_CONTACT = 1;
+    public static final String EXTRA_TWEET_ID = "mytweet.TWEET_ID";
 
-    private EditText message;
+    private TextView message;
     private TextView date;
-    private Button tweetButton;
+    private TextView tweeter;
+
     private Button contactButton;
     private Button emailButton;
 
-    // used to provide us with access to data intent outside onActivityResult
     private Intent data;
 
     private Tweet tweet;
@@ -80,9 +59,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
     private String emailAddress = "";
     MyTweetApp app;
-
-    public TweetFragment() {
-    }
 
 
     // called to do initial creation of the fragment
@@ -104,111 +80,52 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState) {
         super.onCreateView(inflater, parent, savedInstanceState);
-        View v = inflater.inflate(layout.fragment_tweet, parent, false);
+        View v = inflater.inflate(R.layout.fragment_read_tweet, parent, false);
         addListeners(v);
         updateControls(tweet);
         return v;
     }
 
-
     private void addListeners(View v) {
-        message = v.findViewById(id.message);
-        tweetButton = v.findViewById(id.tweetButton);
-        contactButton = v.findViewById(id.contactButton);
-        emailButton = v.findViewById(id.emailButton);
-        date = v.findViewById(id.tweetDate);
+        message = v.findViewById(R.id.message);
+        date = v.findViewById(R.id.tweetDate);
+        tweeter = v.findViewById(R.id.tweeter);
+        contactButton = v.findViewById(R.id.contactButton);
+        emailButton = v.findViewById(R.id.emailButton);
 
-
-        message.addTextChangedListener(this);
-        tweetButton.setOnClickListener(this);
-        contactButton.setOnClickListener(this);
         emailButton.setOnClickListener(this);
-        date.setOnClickListener(this);
+        contactButton.setOnClickListener(this);
+
+        updateControls(tweet);
     }
 
-
+    @SuppressLint("SetTextI18n")
     public void updateControls(Tweet tweet) {
+        User user = app.userStore.getUser(tweet.getUserId());
         message.setText(tweet.getMessage());
         date.setText(tweet.getDateString());
-        contactButton.setText("Contact: " + emailAddress);
-
+        tweeter.setText("Tweeted by: " + user.firstName + " " + user.lastName);
     }
-
 
     // connects new menu to timeline Activity
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.tweetpage, menu);
+        inflater.inflate(R.menu.readtweet, menu);
     }
 
-
-    // new instance created after selection from the menu
+    // added the menu handler code for the up button
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case id.timeline:
-                if (message.getText().length() > 0) {
-                    tweet.message = message.getText().toString();
-                    navigateUp(getActivity());
-                    timeline.saveTweets();
-                } else {
-                    timeline.deleteTweet(tweet);
-                }
-
-                startActivity(new Intent(getActivity(), TimelineActivity.class));
+            case android.R.id.home:
+                navigateUp(getActivity());
                 validInput(getActivity());
+
                 return true;
-
-
-            case id.settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                validInput(getActivity());
-                return true;
-
-
-            case id.logout:
-                Intent in = new Intent(getActivity(), WelcomeActivity.class);
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(in, 0);
-                return true;
-
             default:
                 return super.onOptionsItemSelected(item);
         }
-    }
-
-
-    // if the message is empty it is deleted before resuming
-    // otherwise it is saved to timeline
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (message.getText().length() > 0) {
-            tweet.message = message.getText().toString();
-            navigateUp(getActivity());
-            timeline.saveTweets();
-            validInput(getActivity());
-        } else {
-            timeline.deleteTweet(tweet);
-        }
-    }
-
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    }
-
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-    }
-
-
-    @Override
-    public void afterTextChanged(Editable c) {
-        Log.i(this.getClass().getSimpleName(), "message " + c.toString());
-        tweet.message = c.toString();
     }
 
 
@@ -216,21 +133,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case id.tweetButton:
-                if (message.getText().length() > 0) {
-                    tweet.message = message.getText().toString();
-                    IntentHelper.startActivity(getActivity(), TimelineActivity.class);
-                    timeline.saveTweets();
-                    break;
-
-                } else {
-                    createToastMessage(getActivity(), "You forgot to enter your message!!");
-                    invalidInput(getActivity());
-                    break;
-                }
-
-
-            case id.contactButton:
+            case R.id.contactButton:
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
                 validInput(getActivity());
@@ -240,8 +143,8 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                 break;
 
 
-            case id.emailButton:
-                sendEmail(getActivity(), emailAddress, getString(string.email_subject), tweet.getMessage());
+            case R.id.emailButton:
+                sendEmail(getActivity(), emailAddress, getString(R.string.email_subject), tweet.getMessage());
                 validInput(getActivity());
                 break;
         }
@@ -286,10 +189,10 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
     // reads the contact from the phone
-    private void readContact() {
+    @SuppressLint("SetTextI18n")
+    public void readContact() {
         String name = getContact(getActivity(), data);
         emailAddress = getEmail(getActivity(), data);
-        tweet.contact = emailAddress;
         contactButton.setText("Contact: " + emailAddress);
     }
 
@@ -315,13 +218,5 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             }
         }
     }
-
-
-    // sets the date to a certain style for the tweets after they are created
-    @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-        Date date = new GregorianCalendar(year, monthOfYear, dayOfMonth).getTime();
-        tweet.date = date.getTime();
-        tweetButton.setText(tweet.getDateString());
-    }
 }
+

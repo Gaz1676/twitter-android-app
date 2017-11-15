@@ -31,8 +31,12 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         Handler handler = new Handler();
+
+        // run a thread after 1.5 seconds to start the home screen
         handler.postDelayed(new Runnable() {
 
+            // make sure splash screen closes so the user
+            // won't come back when it presses back key
             @Override
             public void run() {
                 finish();
