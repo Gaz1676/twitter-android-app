@@ -36,6 +36,9 @@
     <string name="contact_button">Select Contact</string>
     <string name="email_button">Send Tweet via Email</string>
 
+    // used for read only tweet page fragment
+    <string name="tweeter">Tweeter</string>
+
 
     //--------- EMAIL SUBJECT --------\\
     <string name="email_subject">Have You Heard The News????</string>

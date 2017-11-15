@@ -3,4 +3,5 @@
     <item type="id" name="viewPager" />
     <item name="toolbar" type="id">toolbar</item>
     <item name="menu_clear" type="id">Clear Tweets</item>
+    <item name="tweeter" type="id">tweeter</item>
 </resources>
