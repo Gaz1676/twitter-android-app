@@ -8,9 +8,6 @@ package app.tweeting.main;
 
 import android.app.Application;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import app.tweeting.models.Timeline;
 import app.tweeting.models.TimelineSerializer;
 import app.tweeting.models.User;
@@ -25,7 +22,8 @@ public class MyTweetApp extends Application {
     private static final String FILENAME_TWEETS = "tweets.json"; // Creates the serializer giving in a file name to use
     private static final String FILENAME_USERS = "users.json"; // Creates the serializer giving in a file name to use
     public UserStore userStore;
-    public List<User> users = new ArrayList<>(); // creates new users arraylist
+    public User currentUser;
+
     protected static MyTweetApp app;
 
 
@@ -37,34 +35,25 @@ public class MyTweetApp extends Application {
     public void onCreate() {
         super.onCreate();
         TimelineSerializer timelineSerializer = new TimelineSerializer(this, FILENAME_TWEETS);
-        UserSerializer userSerializer = new UserSerializer(this, FILENAME_USERS);
+        UserSerializer serializer = new UserSerializer(this, FILENAME_USERS);
         timeline = new Timeline(timelineSerializer);
-        userStore = new UserStore(userSerializer);
-        users = userStore.users;
+        userStore = new UserStore(serializer);
         app = this;
 
         info(this, "MyTweetApp is launched");
     }
 
 
-    // adds new user to userStore collection
-    public void newUser(User user) {
-        users.add(user);
-        userStore.users = (ArrayList<User>) users;
-        userStore.saveUsers();
-    }
-
-
-    // validation of the users by its credentials
     public boolean validUser(String email, String password) {
-        for (User user : users) {
+        User user = userStore.getUserByEmail(email);
+        if (user != null) {
             if (user.email.equals(email) && user.password.equals(password)) {
+                currentUser = user;
                 return true;
             }
         }
         return false;
     }
-
 
     public static MyTweetApp getApp() {
         return app;
