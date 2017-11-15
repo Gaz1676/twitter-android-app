@@ -14,12 +14,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import app.tweeting.R;
-import app.tweeting.helpers.MediaPlayerHelper;
-import app.tweeting.helpers.ToastHelper;
 import app.tweeting.helpers.ValidateHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.User;
 
+import static app.tweeting.helpers.MediaPlayerHelper.invalidInput;
+import static app.tweeting.helpers.MediaPlayerHelper.validInput;
+import static app.tweeting.helpers.ToastHelper.createToastMessage;
 public class SignupActivity extends AppCompatActivity {
     /**
      * Signup Activity Referenced from:
@@ -51,44 +52,45 @@ public class SignupActivity extends AppCompatActivity {
 
 
         if (!ValidateHelper.isValidInput(firstName.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             firstName.setError("Please input first name");
 
 
         } else if (!ValidateHelper.isValidName(firstName.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             firstName.setError("Only use letters");
 
 
         } else if (!ValidateHelper.isValidInput(lastName.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             lastName.setError("Please input last name");
 
 
         } else if (!ValidateHelper.isValidName(lastName.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             lastName.setError("Only use letters");
 
 
         } else if (!ValidateHelper.isValidEmail(email.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             email.setError("Please enter a valid email");
 
 
         } else if (!ValidateHelper.isValidInput(password.getText().toString())) {
-            MediaPlayerHelper.invalidInput(this);
+            invalidInput(this);
             password.setError("Please enter password");
 
 
         } else {
             User user = new User(firstName.getText().toString(), lastName.getText().toString(), email.getText().toString(), password.getText().toString());
 
-            MyTweetApp app = (MyTweetApp) getApplication();
-            app.newUser(user);
+            MyTweetApp app = MyTweetApp.getApp();
+            app.userStore.addUser(user);
+            app.userStore.saveUsers();
             startActivity(new Intent(this, TimelineActivity.class));
 
-            MediaPlayerHelper.validInput(this);
-            ToastHelper.createToastMessage(this, "Welcome to MyTweetApp!");
+            validInput(this);
+            createToastMessage(this, "Welcome to MyTweetApp!");
         }
     }
 }
