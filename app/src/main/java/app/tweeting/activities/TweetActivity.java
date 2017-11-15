@@ -13,11 +13,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 
 import app.tweeting.R;
+import app.tweeting.fragments.ReadTweetFragment;
 import app.tweeting.fragments.TweetFragment;
+import app.tweeting.main.MyTweetApp;
+import app.tweeting.models.Tweet;
+
+import static app.tweeting.fragments.ReadTweetFragment.EXTRA_TWEET_ID;
 
 
 public class TweetActivity extends AppCompatActivity {
-
+    MyTweetApp app = MyTweetApp.getApp();
     ActionBar actionBar;
 
     /**
@@ -34,9 +39,22 @@ public class TweetActivity extends AppCompatActivity {
 
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);
+
+        Long tweetId = (Long) getIntent().getSerializableExtra(EXTRA_TWEET_ID);
+        Tweet tweet = app.timeline.getTweet(tweetId);
+
+        // if tweet is tweeted by current user it can be edited
+        // if not users tweet it is Read Only viewing
         if (fragment == null) {
-            fragment = new TweetFragment();
-            manager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+            if (tweet.getUserId().equals(app.currentUser.id)) {
+                fragment = new TweetFragment();
+                manager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+            } else {
+                fragment = new ReadTweetFragment();
+                manager.beginTransaction().add(R.id.fragmentContainer, fragment).commit();
+            }
         }
+
+
     }
 }
