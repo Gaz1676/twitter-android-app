@@ -51,6 +51,19 @@ public class UserStore {
     }
 
 
+    // method to get a user by email
+    public User getUserByEmail(String email) {
+        Log.i(this.getClass().getSimpleName(), "String parameter email: " + email);
+
+        for (User user : users) {
+            if (email.equals(user.email)) {
+                return user;
+            }
+        }
+        return null;
+    }
+
+
     // method to save all the users to disk
     public boolean saveUsers() {
         try {
