@@ -31,14 +31,16 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'
 
-
-
     /* https://github.com/ksoichiro/RichButtons */
     compile 'com.github.ksoichiro:richbuttons:0.1.1@aar'
 
     /* https://github.com/hdodenhof/CircleImageView */
     compile 'de.hdodenhof:circleimageview:2.1.0' // added library for circle icon
 
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 
 }
+
 
