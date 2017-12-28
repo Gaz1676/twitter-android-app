@@ -20,8 +20,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -35,9 +33,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 
 import app.tweeting.R;
-import app.tweeting.activities.SettingsActivity;
 import app.tweeting.activities.TimelineActivity;
-import app.tweeting.activities.WelcomeActivity;
 import app.tweeting.helpers.IntentHelper;
 import app.tweeting.main.MyTweetApp;
 import app.tweeting.models.Timeline;
@@ -49,7 +45,6 @@ import static app.tweeting.R.string;
 import static app.tweeting.helpers.ContactHelper.getContact;
 import static app.tweeting.helpers.ContactHelper.getEmail;
 import static app.tweeting.helpers.ContactHelper.sendEmail;
-import static app.tweeting.helpers.IntentHelper.navigateUp;
 import static app.tweeting.helpers.MediaPlayerHelper.invalidInput;
 import static app.tweeting.helpers.MediaPlayerHelper.validInput;
 import static app.tweeting.helpers.ToastHelper.createToastMessage;
@@ -68,6 +63,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
 
     private EditText message;
     private TextView date;
+
     private Button tweetButton;
     private Button contactButton;
     private Button emailButton;
@@ -81,9 +77,10 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     private String emailAddress = "";
     MyTweetApp app;
 
-    public TweetFragment() {
-    }
 
+    public TweetFragment() {
+
+    }
 
     // called to do initial creation of the fragment
     @Override
@@ -111,6 +108,7 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // binds and sets listener to the widgets
     private void addListeners(View v) {
         message = v.findViewById(id.message);
         tweetButton = v.findViewById(id.tweetButton);
@@ -124,74 +122,14 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         contactButton.setOnClickListener(this);
         emailButton.setOnClickListener(this);
         date.setOnClickListener(this);
+
+        updateControls(tweet);
     }
 
 
     public void updateControls(Tweet tweet) {
         message.setText(tweet.getMessage());
         date.setText(tweet.getDateString());
-        contactButton.setText("Contact: " + emailAddress);
-
-    }
-
-
-    // connects new menu to timeline Activity
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.tweetpage, menu);
-    }
-
-
-    // new instance created after selection from the menu
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case id.timeline:
-                if (message.getText().length() > 0) {
-                    tweet.message = message.getText().toString();
-                    navigateUp(getActivity());
-                    timeline.saveTweets();
-                } else {
-                    timeline.deleteTweet(tweet);
-                }
-
-                startActivity(new Intent(getActivity(), TimelineActivity.class));
-                validInput(getActivity());
-                return true;
-
-
-            case id.settings:
-                startActivity(new Intent(getActivity(), SettingsActivity.class));
-                validInput(getActivity());
-                return true;
-
-
-            case id.logout:
-                Intent in = new Intent(getActivity(), WelcomeActivity.class);
-                in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivityForResult(in, 0);
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
-    // if the message is empty it is deleted before resuming
-    // otherwise it is saved to timeline
-    @Override
-    public void onPause() {
-        super.onPause();
-        if (message.getText().length() > 0) {
-            tweet.message = message.getText().toString();
-            navigateUp(getActivity());
-            timeline.saveTweets();
-            validInput(getActivity());
-        } else {
-            timeline.deleteTweet(tweet);
-        }
     }
 
 
@@ -212,11 +150,37 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
     }
 
 
+    // new instance created after selection from the menu
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    // if the message is empty it is deleted before resuming
+    // otherwise it is saved to timeline
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (message.getText().length() > 0) {
+            timeline.saveTweets();
+            validInput(getActivity());
+        } else {
+            timeline.deleteTweet(tweet);
+        }
+    }
+
+
     // onClick method activated when a button from menu is clicked
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case id.tweetButton:
+            case R.id.tweetButton:
                 if (message.getText().length() > 0) {
                     tweet.message = message.getText().toString();
                     IntentHelper.startActivity(getActivity(), TimelineActivity.class);
@@ -230,17 +194,17 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
                 }
 
 
-            case id.contactButton:
+            case R.id.contactButton:
                 Intent i = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
                 startActivityForResult(i, REQUEST_CONTACT);
                 validInput(getActivity());
                 if (tweet.contact != null) {
-                    contactButton.setText("Contact: " + emailAddress);
+                    contactButton.setText("Contact: " + tweet.contact);
                 }
                 break;
 
 
-            case id.emailButton:
+            case R.id.emailButton:
                 sendEmail(getActivity(), emailAddress, getString(string.email_subject), tweet.getMessage());
                 validInput(getActivity());
                 break;
@@ -264,6 +228,16 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
         }
     }
 
+
+    // reads the contact from the phone
+    private void readContact() {
+        String name = getContact(getActivity(), data);
+        emailAddress = getEmail(getActivity(), data);
+        tweet.contact = emailAddress;
+        contactButton.setText("Contact : " + emailAddress);
+    }
+
+
     // checks if app has permission to read phones contact details.
     // if permission true - the readContact() method will be called
     // if false - a pop-up dialog box with a toast will ask for permission
@@ -283,14 +257,6 @@ public class TweetFragment extends Fragment implements TextWatcher, OnClickListe
             // else if already granted permission
             readContact();
         }
-    }
-
-    // reads the contact from the phone
-    private void readContact() {
-        String name = getContact(getActivity(), data);
-        emailAddress = getEmail(getActivity(), data);
-        tweet.contact = emailAddress;
-        contactButton.setText("Contact: " + emailAddress);
     }
 
 

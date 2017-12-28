@@ -34,7 +34,7 @@ import static app.tweeting.helpers.MediaPlayerHelper.validInput;
 /**
  * Read Tweet Fragment Referenced from:
  * https://wit-ictskills-2017.github.io/mobile-app-dev/topic05-b/book-a-myrent-07%20(Fragments)/index.html
- * <p>
+ *
  * this class is used for when a user clicks on any given tweet and is shown:
  * .. if it is users tweet they can edit it otherwise
  * .... the tweet is a Read Only tweet and can not be edited only viewed
@@ -86,6 +86,7 @@ public class ReadTweetFragment extends Fragment implements View.OnClickListener 
         return v;
     }
 
+    // binds and sets listener to the widgets
     private void addListeners(View v) {
         message = v.findViewById(R.id.message);
         date = v.findViewById(R.id.tweetDate);
@@ -138,7 +139,7 @@ public class ReadTweetFragment extends Fragment implements View.OnClickListener 
                 startActivityForResult(i, REQUEST_CONTACT);
                 validInput(getActivity());
                 if (tweet.contact != null) {
-                    contactButton.setText("Contact: " + emailAddress);
+                    contactButton.setText("Contact: " + tweet.contact);
                 }
                 break;
 

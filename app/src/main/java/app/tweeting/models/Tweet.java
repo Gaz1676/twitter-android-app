@@ -69,7 +69,7 @@ public class Tweet {
         json.put(JSON_DATE, date);
         json.put(JSON_CONTACT, contact);
         json.put(JSON_MESSAGE, message);
-        json.put(JSON_USER_ID, Long.toString(userId));
+        json.put(JSON_USER_ID, userId);
         return json;
     }
 

@@ -26,18 +26,21 @@ import android.widget.Toast;
 public class ContactHelper {
 
 
-    public static String getContact(Context context, Intent data) {
+    public static String getDisplayName(Context context, Intent data)
+    {
         String contact = "unable to find contact";
         Uri contactUri = data.getData();
-        String[] queryFields = new String[]{ContactsContract.Contacts.DISPLAY_NAME};
+        String[] queryFields = new String[] { ContactsContract.Contacts.DISPLAY_NAME };
         Cursor c = context.getContentResolver().query(contactUri, queryFields, null, null, null);
-        if (c.getCount() == 0) {
+        if (c.getCount() == 0)
+        {
             c.close();
             return contact;
         }
         c.moveToFirst();
         contact = c.getString(0);
         c.close();
+
         return contact;
     }
 
@@ -64,6 +67,25 @@ public class ContactHelper {
             }
         }
         return email;
+    }
+
+
+    public static String getContact(Context context, Intent data)
+    {
+        String contact = "unable to find contact";
+        Uri contactUri = data.getData();
+        String[] queryFields = new String[] { ContactsContract.Contacts.DISPLAY_NAME };
+        Cursor c = context.getContentResolver().query(contactUri, queryFields, null, null, null);
+        if (c.getCount() == 0)
+        {
+            c.close();
+            return contact;
+        }
+        c.moveToFirst();
+        contact = c.getString(0);
+        c.close();
+
+        return contact;
     }
 
 

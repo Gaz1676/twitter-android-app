@@ -27,6 +27,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import app.tweeting.R;
 import app.tweeting.activities.SettingsActivity;
@@ -98,7 +99,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Tweet tweet = adapter.getItem(position);
-        startActivityWithData(getActivity(), TweetActivity.class, tweet.id);
+        startActivityWithData(getActivity(), TweetActivity.class,"TWEET_ID", tweet.id);
     }
 
 
@@ -138,6 +139,7 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
                     adapter.notifyDataSetChanged();
                 }
                 validInput(getActivity());
+
                 return true;
 
 
@@ -230,13 +232,15 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
   /* ************ MultiChoiceModeListener methods (end) *********** */
 
 
-    // the tweet adapter updates the list with the tweet objects contained in the timeline
+    // the timeline adapter updates the list with the tweet objects contained in the timeline
     class TweetAdapter extends ArrayAdapter<Tweet> {
         private Context context;
+        List<Tweet> tweets;
 
         public TweetAdapter(Context context, ArrayList<Tweet> tweets) {
             super(context, 0, tweets);
             this.context = context;
+            this.tweets = tweets;
         }
 
 
@@ -250,9 +254,9 @@ public class TimelineFragment extends ListFragment implements OnItemClickListene
             }
             Tweet tweet = getItem(position);
 
-            TextView messageView = convertView.findViewById(R.id.timeline_item_tweet);
+            TextView message = convertView.findViewById(R.id.timeline_item_tweet);
             assert tweet != null;
-            messageView.setText(tweet.message);
+            message.setText(tweet.getMessage());
 
             TextView dateView = convertView.findViewById(R.id.timeline_item_dateTextView);
             dateView.setText(tweet.getDateString());

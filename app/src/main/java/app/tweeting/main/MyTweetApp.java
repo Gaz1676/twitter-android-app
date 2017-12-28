@@ -29,7 +29,6 @@ public class MyTweetApp extends Application {
 
     // Passes the serializer to the Timeline object which will be responsible
     // for loading / saving to the file using the serializer
-
     // called to do initial creation of the fragment
     @Override
     public void onCreate() {
@@ -39,11 +38,12 @@ public class MyTweetApp extends Application {
         timeline = new Timeline(timelineSerializer);
         userStore = new UserStore(serializer);
         app = this;
-
         info(this, "MyTweetApp is launched");
     }
 
 
+    // validates the user by their email & password
+    // this lets the app know that it is a current user
     public boolean validUser(String email, String password) {
         User user = userStore.getUserByEmail(email);
         if (user != null) {
@@ -59,3 +59,71 @@ public class MyTweetApp extends Application {
         return app;
     }
 }
+
+/*
+package app.tweeting.main;
+
+
+import android.app.Application;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import app.tweeting.models.Timeline;
+import app.tweeting.models.User;
+import app.tweeting.retrofit.MyTweetServiceProxy;
+import retrofit.GsonConverterFactory;
+import retrofit.Retrofit;
+
+public class MyTweetApp extends Application {
+    static final String TAG = "MyTweetApp";
+    public Timeline timeline;
+    protected static MyTweetApp app;
+
+    public List<User> users = new ArrayList<>();
+    public List<User> currentUsers = new ArrayList<>();
+
+    public String service_url = "https://my-tweet20073381.herokuapp.com/"; //server on now
+    public MyTweetServiceProxy tweetService;
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        */
+/*timeline = new Timeline(getApplicationContext());
+        Log.d(TAG, "MyTweet app launched");
+        app = this;*//*
+
+
+        Gson gson = new GsonBuilder().create();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(service_url)
+                .addConverterFactory(GsonConverterFactory.create(gson))
+                .build();
+
+        tweetService = retrofit.create(MyTweetServiceProxy.class);
+    }
+
+    public static MyTweetApp getApp() {
+        return app;
+    }
+
+
+    public void newUser(User user) {
+        users.add(user);
+    }
+
+
+    public boolean validUser(String email, String password) {
+        for (User user : users) {
+            if (user.email.equals(email) && user.password.equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}*/

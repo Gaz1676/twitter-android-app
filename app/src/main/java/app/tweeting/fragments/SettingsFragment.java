@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import app.tweeting.R;
+import app.tweeting.main.MyTweetApp;
 
 import static android.R.attr.key;
 import static app.tweeting.helpers.IntentHelper.navigateUp;
@@ -30,15 +31,18 @@ import static app.tweeting.helpers.MediaPlayerHelper.validInput;
 // implemented the SharedPreferences.OnSharedPreferenceChangeListener interface
 public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
-
     // added a SharedPreference field
     private SharedPreferences prefs;
+    MyTweetApp app = MyTweetApp.getApp();
 
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+
         // enabled up button in onCreate()
         setHasOptionsMenu(true);
     }
